@@ -1,9 +1,25 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Alert} from 'react-native'
+import { useState } from 'react'
 import Signup from '../assets/sign-up.png'
 import Login from '../assets/login.png'
 import User from '../assets/user.png'
+import Submit_sign from '../assets/sign.png'
 
 export default function SignupPage(props) {
+
+  const [details,setDetails] = useState({
+    username: "",
+    phone: "",
+    password: "",
+    email: "",
+  })
+
+  const HandleSignup = ()=>{
+    console.log(details)
+    props.navigation.navigate('login')
+    Alert.alert('Success!!!','Log in with the credentials')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.auth}>
@@ -24,7 +40,38 @@ export default function SignupPage(props) {
           />
         </TouchableOpacity>
       </View>
-      <Text>Signup Page</Text>
+      <View style={styles.form}>
+        <TextInput
+          style={styles.input}
+          placeholder='Username'
+          value={details.username}
+          onChangeText={(res)=>setDetails((prev)=>({...prev,username: res}))}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Email'
+          value={details.email}
+          onChangeText={(res)=>setDetails((prev)=>({...prev,email: res}))}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Phone'
+          value={details.phone}
+          onChangeText={(res)=>setDetails((prev)=>({...prev,phone: res}))}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder='Password'
+          value={details.password}
+          onChangeText={(res)=>setDetails((prev)=>({...prev,password: res}))}
+        />
+        <TouchableOpacity onPress={HandleSignup}> 
+          <Image
+            style={styles.submit}
+            source={Submit_sign}
+          /> 
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -42,5 +89,25 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     marginLeft: 20
+  },
+  form: {
+    alignItems: 'center',
+  },
+  input: {
+    fontSize: 30,
+    borderWidth: 5,
+    borderColor: '#121212',
+    minWidth: '50%',
+    maxWidth: '75%',
+    padding: 10,
+    textAlign: 'center',
+    marginTop: 30,
+    backgroundColor: '#F05454',
+    color: '#F5F5F5'
+  },
+  submit: {
+    height: 120,
+    width: 120,
+    marginTop: 20 
   }
 });
