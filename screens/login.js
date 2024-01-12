@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Alert} from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity, TextInput, Alert} from 'react-native'
 import { useState } from 'react'
+import axios from 'axios'
 import Signup from '../assets/sign-up.png'
 import Login from '../assets/login.png'
 import User from '../assets/user.png'
@@ -8,13 +9,21 @@ import Submit_log from '../assets/log.png'
 export default function LoginPage(props) {
   const [details,setDetails] = useState({
     username: "",
-    phone: "",
-    password: "",
-    email: "",
+    password: ""
   })
   const HandleLogin = ()=>{
     console.log(details)
-    Alert.alert('Success!!!','Logged In')
+    axios.post('http://192.168.29.97:8000/login',details)
+    .then((res)=>{
+      if(res.status===200){
+        console.log(res.data.msg)
+        props.navigation.navigate('login')
+        Alert.alert('Success!!!','Logged In')
+      }
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
   }
   return (
     <View style={styles.container}>

@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Alert} from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity, TextInput, Alert} from 'react-native'
 import { useState } from 'react'
+import axios from 'axios'
 import Signup from '../assets/sign-up.png'
 import Login from '../assets/login.png'
 import User from '../assets/user.png'
@@ -16,8 +17,17 @@ export default function SignupPage(props) {
 
   const HandleSignup = ()=>{
     console.log(details)
-    props.navigation.navigate('login')
-    Alert.alert('Success!!!','Log in with the credentials')
+    axios.post('http://192.168.29.97:8000/signup',details)
+    .then((res)=>{
+      if(res.status===200){
+        console.log(res.data.msg)
+        props.navigation.navigate('login')
+        Alert.alert('Success!!!','Log in with the credentials')
+      }
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
   }
 
   return (
