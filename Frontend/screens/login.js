@@ -12,8 +12,7 @@ export default function LoginPage(props) {
     password: ""
   })
   const HandleLogin = ()=>{
-    console.log(details)
-    axios.post('http://192.168.29.97:8000/login',details)
+    axios.post('http://192.168.43.157:8000/login',details)
     .then((res)=>{
       if(res.status===200){
         console.log(res.data.msg)

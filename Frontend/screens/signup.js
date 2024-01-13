@@ -17,7 +17,7 @@ export default function SignupPage(props) {
 
   const HandleSignup = ()=>{
     console.log(details)
-    axios.post('http://192.168.29.97:8000/signup',details)
+    axios.post('http://192.168.43.157:8000/signup',details)
     .then((res)=>{
       if(res.status===200){
         console.log(res.data.msg)
