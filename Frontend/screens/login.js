@@ -1,4 +1,5 @@
 import { StyleSheet, View, Image, TouchableOpacity, TextInput, Alert} from 'react-native'
+import { StackActions } from '@react-navigation/native';
 import { useState } from 'react'
 import axios from 'axios'
 import Signup from '../assets/sign-up.png'
@@ -16,7 +17,9 @@ export default function LoginPage(props) {
     .then((res)=>{
       if(res.data.status===200){
         console.log(res.data.msg)
-        Alert.alert('Success!!!','Logged In')
+        props.navigation.dispatch(
+          StackActions.replace('home')
+        )
       }
       if(res.data.status===400){
         console.log(res.data.msg)
