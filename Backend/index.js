@@ -8,7 +8,6 @@ app.listen(port,(err)=>{
     console.log(`Server is running at http://localhost:${port}`) 
 })
 
-
 // DATABASE CONNECTION
 
 const mongoose = require('mongoose')
@@ -31,20 +30,16 @@ app.use(express.json());
 
 // API
 
-app.post('/login',(req,res)=>{
+app.post('/login',async(req,res)=>{
     console.log("Login Details - ",req.body)
-    res.status(200).json({msg: 'details reached for login'})
+    const result = await User.findOne(req.body)
+    result?res.json({status: 200,msg: 'User Found in Database'}):res.json({status: 400,msg: 'Wrong Credentials'})
 })
 
-app.post('/signup',(req,res)=>{
+app.post('/signup',async(req,res)=>{
     console.log("Signup Details - ",req.body)
-    const user = new User({
-        username: req.body.username,
-        phone: req.body.phone,
-        email: req.body.email,
-        password: req.body.password
-    })
-    const result = user.save()
+    const user = new User(req.body)
+    const result = await user.save()
     if(result){
         console.log("User Created")
         res.status(200).json({msg: 'details reached for signup'})

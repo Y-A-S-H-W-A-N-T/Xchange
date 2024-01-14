@@ -14,10 +14,13 @@ export default function LoginPage(props) {
   const HandleLogin = ()=>{
     axios.post('http://192.168.43.157:8000/login',details)
     .then((res)=>{
-      if(res.status===200){
+      if(res.data.status===200){
         console.log(res.data.msg)
-        props.navigation.navigate('login')
         Alert.alert('Success!!!','Logged In')
+      }
+      if(res.data.status===400){
+        console.log(res.data.msg)
+        Alert.alert('Opps!!!','Wrong Credentials')
       }
     })
     .catch((err)=>{
