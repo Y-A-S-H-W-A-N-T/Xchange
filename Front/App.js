@@ -1,13 +1,14 @@
-import Home from './screens/home'
 import Login from './screens/login'
 import Signup from './screens/signup'
-import { Image} from 'react-native'
 import Logo from './assets/logo.png'
-import { createStackNavigator } from '@react-navigation/stack'
+import { Image} from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
 
 export default function App() {
 
-  const Stack = createStackNavigator();
+  const stack =  createNativeStackNavigator()
 
   const StackStyle = { 
     animation: 'slide_from_left',
@@ -22,12 +23,14 @@ export default function App() {
       backgroundColor: '#121212',
     },
     statusBarColor: '#F05454'
-    }
+  }
+
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="login" component={Login} />
-      <Stack.Screen name="signup" component={Signup} />
-    </Stack.Navigator>
+    <NavigationContainer>
+        <stack.Navigator>
+            <stack.Screen name='login' component={Login} options={StackStyle}/>
+            <stack.Screen name='signup' component={Signup} options={StackStyle}/>
+        </stack.Navigator>
+    </NavigationContainer>
   );
 }
-
