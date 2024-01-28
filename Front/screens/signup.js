@@ -8,6 +8,8 @@ import Submit_sign from '../assets/sign.png'
 
 export default function SignupPage(props) {
 
+  const URL = `${process.env.BACKEND_SERVER}/signup`;
+
   const [details,setDetails] = useState({
     username: "",
     phone: "",
@@ -17,7 +19,7 @@ export default function SignupPage(props) {
 
   const HandleSignup = ()=>{
     console.log(details)
-    axios.post('http://192.168.43.179:8000/signup',details)
+    axios.post(URL,details)
     .then((res)=>{
       if(res.status===200){
         console.log(res.data.msg)

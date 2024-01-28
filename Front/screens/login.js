@@ -5,6 +5,7 @@ import Signup from '../assets/sign-up.png'
 import Login from '../assets/login.png'
 import User from '../assets/user.png'
 import Submit_log from '../assets/log.png'
+import { StackActions } from '@react-navigation/native'
 
 export default function LoginPage(props) {
   const [details,setDetails] = useState({
@@ -12,10 +13,13 @@ export default function LoginPage(props) {
     password: ""
   })
   const HandleLogin = ()=>{
-    axios.post('http://192.168.43.179:8000/login',details)
+    axios.post('http://172.19.77.136:8000/login',details)
     .then((res)=>{
       if(res.data.status===200){
         console.log(res.data.msg)
+        props.navigation.dispatch(
+          StackActions.replace('home')//pass parameters
+        )
       }
       if(res.data.status===400){
         console.log(res.data.msg)

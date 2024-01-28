@@ -1,6 +1,7 @@
 import Login from './screens/login'
 import Signup from './screens/signup'
 import Logo from './assets/logo.png'
+import Home from './screens/home'
 import { Image} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -30,6 +31,7 @@ export default function App() {
         <stack.Navigator>
             <stack.Screen name='login' component={Login} options={StackStyle}/>
             <stack.Screen name='signup' component={Signup} options={StackStyle}/>
+            <stack.Screen name='home' component={Home} options={StackStyle}/>
         </stack.Navigator>
     </NavigationContainer>
   );
