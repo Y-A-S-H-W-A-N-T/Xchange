@@ -8,17 +8,20 @@ import Submit_log from '../assets/log.png'
 import { StackActions } from '@react-navigation/native'
 
 export default function LoginPage(props) {
+
+  const URL = `${process.env.BACKEND_SERVER}/login`;
+
   const [details,setDetails] = useState({
     username: "",
     password: ""
   })
   const HandleLogin = ()=>{
-    axios.post('http://172.19.77.136:8000/login',details)
+    axios.post(URL,details)
     .then((res)=>{
       if(res.data.status===200){
         console.log(res.data.msg)
         props.navigation.dispatch(
-          StackActions.replace('home')//pass parameters
+          StackActions.replace('role')//pass parameters
         )
       }
       if(res.data.status===400){
