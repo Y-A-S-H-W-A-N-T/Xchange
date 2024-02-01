@@ -9,7 +9,7 @@ import { StackActions } from '@react-navigation/native'
 
 export default function LoginPage(props) {
 
-  const URL = `${process.env.BACKEND_SERVER}/login`;
+  const URL = `http://172.19.79.238:8000/login`;
 
   const [details,setDetails] = useState({
     username: "",

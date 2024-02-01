@@ -4,10 +4,12 @@ import Logo from './assets/logo.png'
 import Role from './screens/role'
 import Home from './screens/home'
 import Profile from './screens/profile'
-import { Image} from 'react-native'
+import { Image, View, Text} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Entypo } from '@expo/vector-icons';
+import TabLogo from './assets/logo.png'
 
 
 export default function App() {
@@ -46,11 +48,54 @@ function MainScreen(){
 
   const Tab = createBottomTabNavigator();
 
+  const TabStyle = {
+
+  }
+
   return(
-    <Tab.Navigator>
-      <Tab.Screen name="home" component={Home} options={{headerShown: false}}/>
-      <Tab.Screen name="profile" component={Profile} options={{headerShown: false}}/> 
-      <Tab.Screen name="role" component={Role} options={{headerShown: false}}/>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle:{
+          bottom: 60,
+          backgroundColor: '#F5F5F5',
+          borderRadius: 100,
+          width: '80%',
+          left: 40,
+        },
+        headerShown: false,
+        tabBarHideOnKeyboard: true
+      }}
+      initialRouteName='home'
+    >
+      <Tab.Screen name="profile" component={Profile}options={{
+        tabBarIcon: ({focused})=>{
+          return(
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Entypo name="home" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>home</Text>
+            </View>
+          )
+        }
+      }}/> 
+      <Tab.Screen name="home" component={Home} options={{
+        tabBarIcon: ({focused})=>{
+          return(
+            <View>
+              <Entypo name="home" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>home</Text>
+            </View>
+          )
+        }
+      }}
+      />
+      <Tab.Screen name="role" component={Role}options={{
+        tabBarIcon: ({focused})=>{
+          return(
+            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+              <Entypo name="home" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>home</Text>
+            </View>
+          )
+        }
+      }}/>
     </Tab.Navigator>
   )
 

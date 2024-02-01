@@ -23,7 +23,7 @@ export default function Role(props){
             source={SELL}
           />
         </TouchableOpacity>
-        <Text style={styles.text}>Sell a product</Text>
+        <Text style={styles.text}>Sell a product!! EXCHANGE A PRODUCT WITH SOMEONE</Text>
       </View>
       <TouchableOpacity style={styles.skip} onPress={(e)=>Skip(e)}>
         <Image
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     marginLeft: '40%'
   },
   skip_button:{
-    height: 30,
-    width: 100
+    height: 50,
+    width: 70
   }
 })
