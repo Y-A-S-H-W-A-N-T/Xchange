@@ -17,7 +17,7 @@ export default function Role(props){
   return (
     <View>
       <View style={styles.card}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>props.navigation.navigate('sell')}>
           <Image
             style={styles.sell}
             source={SELL}

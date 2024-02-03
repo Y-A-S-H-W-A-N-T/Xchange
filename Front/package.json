@@ -14,10 +14,12 @@
     "axios": "^1.6.7",
     "dotenv": "^16.4.1",
     "expo": "~50.0.2",
+    "expo-image-picker": "^14.7.1",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.2",
-    "react-native-dotenv": "^3.4.9"
+    "react-native-dotenv": "^3.4.9",
+    "react-native-image-picker": "^7.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

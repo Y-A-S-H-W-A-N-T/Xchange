@@ -4,12 +4,13 @@ import Logo from './assets/logo.png'
 import Role from './screens/role'
 import Home from './screens/home'
 import Profile from './screens/profile'
+import Sell from './screens/sell'
 import { Image, View, Text} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Entypo } from '@expo/vector-icons';
-import TabLogo from './assets/logo.png'
+import { Entypo } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons';
 
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
             <stack.Screen name='login' component={Login} options={StackStyle}/>
             <stack.Screen name='signup' component={Signup} options={StackStyle}/>
             <stack.Screen name='role' component={Role} options={StackStyle}/>
+            <stack.Screen name='sell' component={Sell} options={StackStyle}/>
             <stack.Screen name='main' component={MainScreen} options={StackStyle}/>
         </stack.Navigator>
     </NavigationContainer>
@@ -57,7 +59,7 @@ function MainScreen(){
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle:{
-          bottom: 60,
+          bottom: 10,
           backgroundColor: '#F5F5F5',
           borderRadius: 100,
           width: '80%',
@@ -72,7 +74,7 @@ function MainScreen(){
         tabBarIcon: ({focused})=>{
           return(
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Entypo name="home" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>home</Text>
+              <FontAwesome name="user" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>Profile</Text>
             </View>
           )
         }
