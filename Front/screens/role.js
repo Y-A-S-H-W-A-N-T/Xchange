@@ -1,12 +1,13 @@
-import { View, Image, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { View, Image, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native'
 import SELL from '../assets/sell.png'
 import BUY from '../assets/buy1.png'
 import SKIP from '../assets/skip.png'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StackActions } from '@react-navigation/native'
 
 export default function Role(props){
 
+  console.log(props.route.params.id)// accessing the id that was passed from the login page
   const Skip = (e)=>{
     e.preventDefault()
     props.navigation.dispatch(
@@ -17,7 +18,7 @@ export default function Role(props){
   return (
     <View>
       <View style={styles.card}>
-        <TouchableOpacity onPress={()=>props.navigation.navigate('sell')}>
+        <TouchableOpacity onPress={()=>props.navigation.navigate('sell',{id : props.route.params.id})}>
           <Image
             style={styles.sell}
             source={SELL}

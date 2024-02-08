@@ -9,7 +9,7 @@ import { StackActions } from '@react-navigation/native'
 
 export default function LoginPage(props) {
 
-  const URL = `http://172.19.79.238:8000/login`;
+  const URL = `http://172.19.78.219:8000/login`
 
   const [details,setDetails] = useState({
     username: "",
@@ -18,10 +18,13 @@ export default function LoginPage(props) {
   const HandleLogin = ()=>{
     axios.post(URL,details)
     .then((res)=>{
+      console.log("Id of user - ",res.data.id)
       if(res.data.status===200){
         console.log(res.data.msg)
         props.navigation.dispatch(
-          StackActions.replace('role')//pass parameters
+          StackActions.replace('role',{
+            id: res.data.id
+          })//pass parameters
         )
       }
       if(res.data.status===400){

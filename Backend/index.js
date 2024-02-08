@@ -33,7 +33,8 @@ app.use(express.json());
 app.post('/login',async(req,res)=>{
     console.log("Login Details - ",req.body)
     const result = await User.findOne(req.body)
-    result?res.json({status: 200,msg: 'User Found in Database'}):res.json({status: 400,msg: 'Wrong Credentials'})
+    console.log(result)
+    result?res.json({status: 200,msg: 'User Found in Database', id: result._id}):res.json({status: 400,msg: 'Wrong Credentials'})
 })
 
 app.post('/signup',async(req,res)=>{
@@ -48,4 +49,8 @@ app.post('/signup',async(req,res)=>{
     {
         console.log("Error in creating user")
     }
+})
+
+app.post('/image',async(req,res)=>{
+    console.log(req.body)
 })
