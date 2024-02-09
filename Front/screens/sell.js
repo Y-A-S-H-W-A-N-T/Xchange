@@ -7,14 +7,33 @@ import { StackActions } from '@react-navigation/native' // replace this screem a
 import * as FileSystem from 'expo-file-system'
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage"
 import { storage } from '../config'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Role(props){
 
 
-    Alert.alert(props.route.params.id)
+    // Fetching user id from Async Storage
 
+  const [user_id,setUser_id] = useState()
+
+  async function Get_Async_Storage(){
+    try {
+      const value = await AsyncStorage.getItem('userID')
+      if (value !== null) {
+        setUser_id(value)
+      }
+    } catch (e) {
+      console.log("Unable to fetch user id from Async Storage",e)
+    }
+  }
+  Get_Async_Storage()
+
+  console.log("Fetching user id from Async Storage",user_id)
+
+  
     const URL = `http://172.19.78.219:8000/image`
+
     const [image,setImage] = useState('')
     const [url,setUrl] = useState('')
     const [Product_Name,setProductName] = useState('')
@@ -76,6 +95,7 @@ export default function Role(props){
           onPress={Upload}
           title="UPLOAD IMAGE"
           color="#841584"
+          style={{flex: 1}}
         />
         { image && <Image source={{uri: image}} style={{height: 250,width: 350}}/> }
     </View>

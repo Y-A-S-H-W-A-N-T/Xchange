@@ -6,6 +6,7 @@ import Controller from '../assets/controller.jpg'
 
 export default function Home(props){
 
+
   return (
     <View>
       <View style={styles.search_bar}>

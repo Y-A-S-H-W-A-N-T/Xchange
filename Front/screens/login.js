@@ -1,4 +1,5 @@
 import { StyleSheet, View, Image, TouchableOpacity, TextInput, Alert} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useState } from 'react'
 import axios from 'axios'
 import Signup from '../assets/sign-up.png'
@@ -9,7 +10,42 @@ import { StackActions } from '@react-navigation/native'
 
 export default function LoginPage(props) {
 
+
+  const [islogged,setIslogged] = useState(false)
+
+  // Checking whether the user is logged in or not
+
+  async function Check_Login_Status(){
+    try {
+      const value = await AsyncStorage.getItem('userID')
+      if (value !== null) {
+        setIslogged(true)
+        props.navigation.dispatch(
+          StackActions.replace('role')
+        )
+      }
+    } catch (e) {
+      console.log("User Not loggin error",e)
+    }
+  }
+
+  Check_Login_Status()
+
+
+  // URL
+
   const URL = `http://172.19.78.219:8000/login`
+
+
+  // Storing in Async Storage
+  async function Store_Async_Storage(user_id){
+    try {
+      await AsyncStorage.setItem('userID', user_id)
+      console.log("User id stored in Async Storage")
+    } catch (e) {
+      console.log("Unable to store in Async Storage - ",e)
+    }
+  }
 
   const [details,setDetails] = useState({
     username: "",
@@ -21,10 +57,13 @@ export default function LoginPage(props) {
       console.log("Id of user - ",res.data.id)
       if(res.data.status===200){
         console.log(res.data.msg)
+
+        const user_id = res.data.id
+
+        Store_Async_Storage(user_id) // Async Storage
+
         props.navigation.dispatch(
-          StackActions.replace('role',{
-            id: res.data.id
-          })//pass parameters
+          StackActions.replace('role')//pass parameters
         )
       }
       if(res.data.status===400){
@@ -36,9 +75,10 @@ export default function LoginPage(props) {
       console.log(err)
     })
   }
+
   return (
     <View style={styles.container}>
-      <View style={styles.auth}>
+      {!islogged && <><View style={styles.auth}>
         <TouchableOpacity onPress={()=>props.navigation.navigate('signup')}> 
           <Image
             style={styles.auth_logo}
@@ -75,7 +115,7 @@ export default function LoginPage(props) {
             source={Submit_log}
           /> 
         </TouchableOpacity>
-      </View>
+      </View></>}
     </View>
   );
 }
