@@ -11,7 +11,7 @@ app.listen(port,(err)=>{
 // DATABASE CONNECTION
 
 const mongoose = require('mongoose')
-const User = require('./schema')
+const { User, Products } = require('./schema')
 
 const URL = `mongodb+srv://raoyashwant132:Xchange@mobile.qd2x1vb.mongodb.net/Xchange?retryWrites=true&w=majority`
 mongoose.connect(URL)
@@ -51,6 +51,14 @@ app.post('/signup',async(req,res)=>{
     }
 })
 
-app.post('/image',async(req,res)=>{
-    console.log(req.body)
+app.post('/upload_Product',async(req,res)=>{
+    const products = new Products(req.body)
+    const result = await products.save()
+    result?console.log("Product Uploaded") : console.log("Error in uploading product")
+})
+
+app.get('/getProducts',async(req,res)=>{
+    const result = await Products.findOne({})
+    res.send(result)
+    console.log(result)
 })

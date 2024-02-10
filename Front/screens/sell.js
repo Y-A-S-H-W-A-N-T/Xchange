@@ -10,7 +10,7 @@ import { storage } from '../config'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export default function Role(props){
+export default function Sell(props){
 
 
     // Fetching user id from Async Storage
@@ -32,11 +32,16 @@ export default function Role(props){
   console.log("Fetching user id from Async Storage",user_id)
 
   
-    const URL = `http://172.19.78.219:8000/image`
+    const URL = `http://172.19.78.219:8000/upload_Product`
 
     const [image,setImage] = useState('')
     const [url,setUrl] = useState('')
-    const [Product_Name,setProductName] = useState('')
+    const [Product_Details,setProduct_Details] = useState({
+      product_name: '',
+      product_link: '',
+      product_price: '',
+      product_message: ''
+    })
 
     async function SelectImage(){
         const { permission } = await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -48,7 +53,7 @@ export default function Role(props){
         setImage(response.assets[0].uri)
       }     
 
-      async function Upload(){
+      async function Add_Image(){
         try{
           const { uri } = await FileSystem.getInfoAsync(image)
           const blob = await new Promise((resolve, reject) => {
@@ -65,7 +70,7 @@ export default function Role(props){
             xhr.send(null);
           })
           const filename = image.substring(image.lastIndexOf('/'+ 1))
-          const Img_ref = ref(storage,Product_Name)
+          const Img_ref = ref(storage,Product_Details.product_name)
           uploadBytes(Img_ref,blob)
           .then(async(res)=>{
               await getDownloadURL(res.ref)
@@ -79,25 +84,38 @@ export default function Role(props){
           })
           console.log('LINK - ',url)
           Alert.alert(url)
+          setProduct_Details((prev)=>({...prev,product_link: url}))
         }
         catch(err){
           console.log(err)
         }
+      }
+      console.log("Product_Details - ",Product_Details)
+
+
+      const Upload = ()=>{
+        axios.post(URL,Product_Details)
       }
 
 
   return (
     <View>
         <Text>SELL YOUR PRODUCT HERE</Text>
-        <TextInput placeholder='Name of the Product' onChangeText={(text)=> setProductName(text)}/>
+        <TextInput placeholder='Name of the Product' onChangeText={(text)=> setProduct_Details((prev)=>({...prev,product_name: text}))}/>
         <TouchableOpacity onPress={SelectImage}><Text>SELECT IMAGE</Text></TouchableOpacity>
+        { image && <Image source={{uri: image}} style={{height: 250,width: 350}}/> }
         <Button
-          onPress={Upload}
+          onPress={Add_Image}
           title="UPLOAD IMAGE"
           color="#841584"
-          style={{flex: 1}}
         />
-        { image && <Image source={{uri: image}} style={{height: 250,width: 350}}/> }
+        <TextInput placeholder='Price' onChangeText={(text)=> setProduct_Details((prev)=>({...prev,product_price: text}))}/>
+        <TextInput placeholder='Add a message' onChangeText={(text)=> setProduct_Details((prev)=>({...prev,product_message: text}))}/>
+        <Button
+          onPress={Upload}
+          title="Upload Product"
+          color="#841584"
+        />
     </View>
   )
 }
