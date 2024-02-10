@@ -1,7 +1,7 @@
 import { View, Image, StyleSheet, Text, TouchableOpacity, Button, Alert, TextInput} from 'react-native'
 import React from 'react'
 import * as ImagePicker from 'expo-image-picker'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { StackActions } from '@react-navigation/native' // replace this screem after the user uploads the product
 import * as FileSystem from 'expo-file-system'
@@ -12,36 +12,39 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Sell(props){
 
-
-    // Fetching user id from Async Storage
-
-  const [user_id,setUser_id] = useState()
-
-  async function Get_Async_Storage(){
-    try {
-      const value = await AsyncStorage.getItem('userID')
-      if (value !== null) {
-        setUser_id(value)
-      }
-    } catch (e) {
-      console.log("Unable to fetch user id from Async Storage",e)
-    }
-  }
-  Get_Async_Storage()
-
-  console.log("Fetching user id from Async Storage",user_id)
-
-  
     const URL = `http://172.19.78.219:8000/upload_Product`
 
+    const [user_id,setUser_id] = useState()
     const [image,setImage] = useState('')
     const [url,setUrl] = useState('')
     const [Product_Details,setProduct_Details] = useState({
       product_name: '',
       product_link: '',
       product_price: '',
-      product_message: ''
+      product_message: '',
+      product_owner: ''
     })
+
+    useEffect(()=>{
+
+      // Fetching user id from Async Storage
+        
+      async function Get_Async_Storage(){
+        try {
+          const value = await AsyncStorage.getItem('userID')
+          if (value !== null) {
+            setUser_id(value)
+            setProduct_Details((prev)=>({...prev,product_owner: value}))
+          }
+        } catch (e) {
+          console.log("Unable to fetch user id from Async Storage ->",e)
+        }
+      }
+      Get_Async_Storage()
+    
+      console.log("Fetching user id from Async Storage",user_id)
+      console.log("Product_Details - ",Product_Details)
+    },[user_id])
 
     async function SelectImage(){
         const { permission } = await ImagePicker.requestMediaLibraryPermissionsAsync()
@@ -90,10 +93,10 @@ export default function Sell(props){
           console.log(err)
         }
       }
-      console.log("Product_Details - ",Product_Details)
 
+      // Uploading Product to Mongodb Atlas
 
-      const Upload = ()=>{
+      const Upload = async()=>{        
         axios.post(URL,Product_Details)
       }
 

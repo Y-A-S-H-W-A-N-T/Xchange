@@ -52,9 +52,26 @@ app.post('/signup',async(req,res)=>{
 })
 
 app.post('/upload_Product',async(req,res)=>{
+    console.log(req.body)
     const products = new Products(req.body)
     const result = await products.save()
     result?console.log("Product Uploaded") : console.log("Error in uploading product")
+    const obj_id = new mongoose.Types.ObjectId(products.id)
+    await User.updateOne(
+        {
+            _id: req.body.product_owner
+        },
+        {
+            $push:{
+                products: obj_id
+            }
+        }
+    ).then(()=>{
+        console.log("Updated User Products")
+    }).catch((err)=>{
+        console.log("Error in updating user products ->",err)
+    })
+    
 })
 
 app.get('/getProducts',async(req,res)=>{

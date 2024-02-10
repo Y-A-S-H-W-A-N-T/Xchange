@@ -47,6 +47,11 @@ const products = mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+    },
+    product_owner: {
+        type: String,
+        required: true,
+        trim: true,
     }
 })
 
