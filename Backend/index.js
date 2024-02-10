@@ -75,7 +75,13 @@ app.post('/upload_Product',async(req,res)=>{
 })
 
 app.get('/getProducts',async(req,res)=>{
-    const result = await Products.findOne({})
+    const result = await Products.find({})
+    res.send(result)
+    console.log(result)
+})
+
+app.get('/userProducts',async(req,res)=>{
+    const result =await User.find({}).populate({path: 'products', model: 'products'})
     res.send(result)
     console.log(result)
 })
