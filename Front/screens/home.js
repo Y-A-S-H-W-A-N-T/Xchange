@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet, Text, TouchableOpacity, TextInput, ScrollView, FlatList } from 'react-native'
+import { View, Image, StyleSheet, Text, TouchableOpacity, TextInput, ScrollView, FlatList, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StackActions } from '@react-navigation/native'
 import Search from '../assets/search.png'
@@ -10,6 +10,7 @@ export default function Home(props){
   const URL = `http://172.19.78.219:8000/getProducts`
 
   const [products,setProducts] = useState()
+  const [search,setSearch] = useState()
 
   useEffect(()=>{
     axios.get(URL)
@@ -18,23 +19,27 @@ export default function Home(props){
     })
   },[])
 
+  const Search_Product = async()=>{
+    Alert.alert("seached for ",search)
+  }
 
   return (
     <View>
       <View style={styles.search_bar}>
-        <TextInput style={styles.search}/><TouchableOpacity><Image source={Search} style={styles.search_button}/></TouchableOpacity>
+        <TextInput style={styles.search} placeholder='search an item' value={search} onChangeText={(text)=>setSearch(text)}/>
+        <TouchableOpacity onPress={Search_Product}><Image source={Search} style={styles.search_button}/></TouchableOpacity>
       </View>
       <FlatList
         style={styles.flatlist}
         numColumns={2}
         data={products}
         renderItem={({ item })=>( // using item keyword is necessary
-          <View>
+          <TouchableOpacity onPress={()=>Alert.alert("Price - ",item.product_price)}>
             <View style={styles.card}>
               <Image source={{uri: item.product_link}} style={styles.card_image}/>
               <Text>{item.product_name}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         )}  
       />
     </View>

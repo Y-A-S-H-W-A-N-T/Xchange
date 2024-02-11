@@ -113,7 +113,7 @@ export default function Profile(props){
               onPress: async() =>{
                 uploadProfile_Pic()
                 if(!url){
-                  Alert.alert('Upload PFP again')
+                  uploadProfile_Pic()
                   return
                 }
                 await axios.post(URL,{

@@ -3,11 +3,11 @@ import React from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { StackActions } from '@react-navigation/native' // replace this screem after the user uploads the product
+import { StackActions } from '@react-navigation/native'
 import * as FileSystem from 'expo-file-system'
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage"
 import { storage } from '../config'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 export default function Sell(props){
@@ -73,18 +73,22 @@ export default function Sell(props){
             xhr.send(null);
           })
           const filename = image.substring(image.lastIndexOf('/'+ 1))
-          const Img_ref = ref(storage,Product_Details.product_name)
-          uploadBytes(Img_ref,blob)
-          .then(async(res)=>{
-              await getDownloadURL(res.ref)
-              .then((link)=>{
-                setUrl(link)
-              })
-              .catch((err)=>{
-                Alert.alert(err)
-                console.log(err)
-              })
-          })
+          const upload_to_firebase = ()=>{
+            const Img_ref = ref(storage,Product_Details.product_name)
+            uploadBytes(Img_ref,blob)
+            .then(async(res)=>{
+                await getDownloadURL(res.ref)
+                .then((link)=>{
+                  setUrl(link)
+                })
+                .catch((err)=>{
+                  Alert.alert(err)
+                  console.log(err)
+                })
+            })
+          }
+          upload_to_firebase()
+          if(!url)upload_to_firebase()
           console.log('LINK - ',url)
           Alert.alert(url)
           setProduct_Details((prev)=>({...prev,product_link: url}))
@@ -98,7 +102,9 @@ export default function Sell(props){
 
       const Upload = async()=>{        
         axios.post(URL,Product_Details)
-        props.navigation.navigate('home')
+        props.navigation.dispatch(
+          StackActions.replace('main')
+        )
       }
 
 

@@ -23,7 +23,7 @@ export default function Role(props){
             source={SELL}
           />
         </TouchableOpacity>
-        <Text style={styles.text}>Sell a product!! EXCHANGE A PRODUCT WITH SOMEONE</Text>
+        <Text style={styles.text}>Sell a product!!</Text>
       </View>
       <TouchableOpacity style={styles.skip} onPress={(e)=>Skip(e)}>
         <Image
@@ -32,7 +32,7 @@ export default function Role(props){
         />
       </TouchableOpacity>
       <View style={styles.card}>
-        <Text style={styles.text}>Buy a product</Text>
+        <Text style={styles.text}>Xchange</Text>
         <TouchableOpacity>
           <Image
             style={styles.buy}
