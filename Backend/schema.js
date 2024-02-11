@@ -25,7 +25,11 @@ const user = mongoose.Schema({
         {
             type: mongoose.Types.ObjectId, ref: 'products'
         }
-    ]
+    ],
+    profilePic_link: {
+        type: String,
+        trim: true
+    }
 })
 
 const products = mongoose.Schema({

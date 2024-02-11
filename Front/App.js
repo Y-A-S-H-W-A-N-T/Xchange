@@ -93,7 +93,7 @@ function MainScreen(){
         tabBarIcon: ({focused})=>{
           return(
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Entypo name="home" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>home</Text>
+              <Entypo name="login" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>features</Text>
             </View>
           )
         }

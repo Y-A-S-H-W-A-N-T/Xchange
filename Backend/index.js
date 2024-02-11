@@ -85,3 +85,27 @@ app.get('/userProducts',async(req,res)=>{
     res.send(result)
     console.log(result)
 })
+
+app.post('/upload_profile_pic',async(req,res)=>{
+    console.log(req.body)
+    await User.updateOne(
+        {
+            _id: req.body.id
+        },
+        {
+            profilePic_link: req.body.link
+        }
+    ).then(()=>{
+        console.log("Added Profile Pic")
+    }).catch((err)=>{
+        console.log("Profile pic uploading Error ->",err)
+    })
+})
+
+
+app.post('/userDetails',async(req,res)=>{
+    console.log(req.body)
+    const result = await User.findOne({_id: req.body.id}).catch((e)=>console.log(e))
+    console.log(result)
+    res.send(result)
+})

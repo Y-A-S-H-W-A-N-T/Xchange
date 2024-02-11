@@ -1,10 +1,22 @@
-import { View, Image, StyleSheet, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native'
-import React from 'react'
+import { View, Image, StyleSheet, Text, TouchableOpacity, TextInput, ScrollView, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { StackActions } from '@react-navigation/native'
 import Search from '../assets/search.png'
 import Controller from '../assets/controller.jpg'
+import axios from 'axios'
 
 export default function Home(props){
+
+  const URL = `http://172.19.78.219:8000/getProducts`
+
+  const [products,setProducts] = useState()
+
+  useEffect(()=>{
+    axios.get(URL)
+    .then((res)=>{
+      setProducts(res.data)
+    })
+  },[])
 
 
   return (
@@ -12,17 +24,18 @@ export default function Home(props){
       <View style={styles.search_bar}>
         <TextInput style={styles.search}/><TouchableOpacity><Image source={Search} style={styles.search_button}/></TouchableOpacity>
       </View>
-      <ScrollView>
-        <View style={styles.card}><Image source={Controller} style={styles.card_image}/></View>
-        <View style={styles.card}><Image source={Controller} style={styles.card_image}/></View>
-        <View style={styles.card}><Image source={Controller} style={styles.card_image}/></View>
-        <View style={styles.card}><Image source={Controller} style={styles.card_image}/></View>
-        <View style={styles.card}><Image source={Controller} style={styles.card_image}/></View>
-        <View style={styles.card}><Image source={Controller} style={styles.card_image}/></View>
-        <View style={styles.card}><Image source={Controller} style={styles.card_image}/></View>
-        <View style={styles.card}><Image source={Controller} style={styles.card_image}/></View>
-        <View style={styles.card}><Image source={Controller} style={styles.card_image}/></View>
-      </ScrollView>
+      <FlatList
+        numColumns={2}
+        data={products}
+        renderItem={({ item })=>( // using item keyword is necessary
+          <View>
+            <View style={styles.card}>
+              <Image source={{uri: item.product_link}} style={styles.card_image}/>
+              <Text>{item.product_name}</Text>
+            </View>
+          </View>
+        )}  
+      />
     </View>
   )
 }
@@ -46,12 +59,15 @@ const styles = StyleSheet.create({
     width: 90
   },
   card: {
-    alignItems: 'center'
-  },
-  card_image: {
+    alignItems: 'center',
     borderWidth: 5,
     borderColor: 'black',
-    marginTop: 20
-  }
-
+    width: 180,
+    marginHorizontal: 8,
+    marginVertical: 10
+  },
+  card_image: {
+    width: '100%',
+    height: 200,
+  },kgroundColor: 'red'
 })
