@@ -57,13 +57,14 @@ export default function Profile(props){
     const { permission } = await ImagePicker.requestMediaLibraryPermissionsAsync()
     const response = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        base64: true
+        allowsEditing: true
     })
+    console.log(response)
     setImage(response.assets[0].uri)
-    if(!image){
-      Alert.alert("Upload again")
-      return
+    if(!response.assets[0].uri){
+      setImage(response.assets[0].uri)
+      setLoading(false)
+      await SelectImage()
     }
       try{
         const { uri } = await FileSystem.getInfoAsync(image)
@@ -96,6 +97,7 @@ export default function Profile(props){
           })
         }
         uploadProfile_Pic()
+        uploadProfile_Pic()
         console.log('PIC - ',url)
         Alert.alert(
           "Hi",
@@ -118,6 +120,7 @@ export default function Profile(props){
                   id: user_id,
                   link: url
                 })             // Uploading Profile Picture
+                
               }
              }
           ],
@@ -161,6 +164,7 @@ export default function Profile(props){
       {loading && <Text style={styles.text}>LOADING.............</Text>}
       <View style={styles.box}>
         <View style={styles.profile_box}>
+          {!user.pfp_link && <Image source={Pic} style={styles.profile_pic}/>}
           {user.pfp_link && <Image source={{uri : user.pfp_link}} style={styles.profile_pic}/>}
         </View>
       </View>
@@ -208,7 +212,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'red',
     borderRadius: 100,
-    width: '25%',
-    overflow: 'hidden'
+    width: '27%',
+    overflow: 'hidden',
+    borderWidth: 5,
+    borderColor: 'black',
   }
 })

@@ -98,6 +98,7 @@ export default function Sell(props){
 
       const Upload = async()=>{        
         axios.post(URL,Product_Details)
+        props.navigation.navigate('home')
       }
 
 

@@ -25,6 +25,7 @@ export default function Home(props){
         <TextInput style={styles.search}/><TouchableOpacity><Image source={Search} style={styles.search_button}/></TouchableOpacity>
       </View>
       <FlatList
+        style={styles.flatlist}
         numColumns={2}
         data={products}
         renderItem={({ item })=>( // using item keyword is necessary
@@ -69,5 +70,8 @@ const styles = StyleSheet.create({
   card_image: {
     width: '100%',
     height: 200,
-  },kgroundColor: 'red'
+  },
+  flatlist: {
+    marginBottom: 100
+  }
 })
