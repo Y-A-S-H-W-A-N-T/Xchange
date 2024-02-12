@@ -5,6 +5,7 @@ import Role from './screens/role'
 import Home from './screens/home'
 import Profile from './screens/profile'
 import Sell from './screens/sell'
+import Product from './screens/product'
 import { Image, View, Text} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -39,6 +40,7 @@ export default function App() {
             <stack.Screen name='signup' component={Signup} options={StackStyle}/>
             <stack.Screen name='role' component={Role} options={StackStyle}/>
             <stack.Screen name='sell' component={Sell} options={StackStyle}/>
+            <stack.Screen name='product' component={Product} options={StackStyle}/>
             <stack.Screen name='main' component={MainScreen} options={StackStyle}/>
         </stack.Navigator>
     </NavigationContainer>

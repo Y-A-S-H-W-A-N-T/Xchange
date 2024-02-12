@@ -43,7 +43,7 @@ const products = mongoose.Schema({
         required: true,
         trim: true
     },
-    prodcut_message: {
+    product_message: {
         type: String,
         trim: true
     },

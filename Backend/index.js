@@ -97,8 +97,10 @@ app.post('/upload_profile_pic',async(req,res)=>{
         }
     ).then(()=>{
         console.log("Added Profile Pic")
+        res.status(200)
     }).catch((err)=>{
         console.log("Profile pic uploading Error ->",err)
+        res.status(404)
     })
 })
 

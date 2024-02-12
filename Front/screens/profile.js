@@ -62,9 +62,10 @@ export default function Profile(props){
     console.log(response)
     setImage(response.assets[0].uri)
     if(!response.assets[0].uri){
-      setImage(response.assets[0].uri)
+      Alert.alert("Select image again")
       setLoading(false)
       await SelectImage()
+      setImage(response.assets[0].uri)
     }
       try{
         const { uri } = await FileSystem.getInfoAsync(image)
@@ -97,7 +98,6 @@ export default function Profile(props){
           })
         }
         uploadProfile_Pic()
-        uploadProfile_Pic()
         console.log('PIC - ',url)
         Alert.alert(
           "Hi",
@@ -113,19 +113,21 @@ export default function Profile(props){
               onPress: async() =>{
                 uploadProfile_Pic()
                 if(!url){
+                  Alert.alert("Upload Again")
                   uploadProfile_Pic()
                   return
                 }
+                // Uploading Profile Picture
                 await axios.post(URL,{
                   id: user_id,
                   link: url
-                })             // Uploading Profile Picture
+                })
                 
               }
              }
           ],
           { cancelable: false }
-       );
+       )
       }
       catch(err){
         console.log(err)

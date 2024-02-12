@@ -72,10 +72,9 @@ export default function Sell(props){
             xhr.open("GET", uri, true);
             xhr.send(null);
           })
-          const filename = image.substring(image.lastIndexOf('/'+ 1))
-          const upload_to_firebase = ()=>{
+          const upload_to_firebase = async()=>{
             const Img_ref = ref(storage,Product_Details.product_name)
-            uploadBytes(Img_ref,blob)
+            await uploadBytes(Img_ref,blob)
             .then(async(res)=>{
                 await getDownloadURL(res.ref)
                 .then((link)=>{
@@ -88,10 +87,35 @@ export default function Sell(props){
             })
           }
           upload_to_firebase()
-          if(!url)upload_to_firebase()
-          console.log('LINK - ',url)
-          Alert.alert(url)
+          if(!url)
+          {
+            upload_to_firebase()
+          }
+          console.log('came HERE ------------------------------------------------ ',url)
           setProduct_Details((prev)=>({...prev,product_link: url}))
+          if(Product_Details.product_link.length<5)
+          {
+            upload_to_firebase()
+          }
+          Alert.alert(
+            "Hi",
+            "Upload Picture?",
+            [
+               {
+                  text: "Cancel",
+                  onPress: () => console.log("Cancel Pressed"),
+                  style: "cancel"
+               },
+               {
+                text: "Confirm",
+                onPress: async() =>{
+                  Alert.alert("Upload image - ",url)
+                  upload_to_firebase()
+                }
+               }
+            ],
+            { cancelable: false }
+         )
         }
         catch(err){
           console.log(err)
@@ -126,6 +150,7 @@ export default function Sell(props){
           title="Upload Product"
           color="#841584"
         />
+        {console.log(Product_Details)}
     </View>
   )
 }

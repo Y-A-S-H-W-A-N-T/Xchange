@@ -34,7 +34,12 @@ export default function Home(props){
         numColumns={2}
         data={products}
         renderItem={({ item })=>( // using item keyword is necessary
-          <TouchableOpacity onPress={()=>Alert.alert("Price - ",item.product_price)}>
+          <TouchableOpacity onPress={()=>props.navigation.navigate('product',{
+            product_name: item.product_name,
+            product_image: item.product_link,
+            product_message: item.product_message,
+            product_price: item.product_price
+          })}>
             <View style={styles.card}>
               <Image source={{uri: item.product_link}} style={styles.card_image}/>
               <Text>{item.product_name}</Text>
