@@ -35,10 +35,7 @@ export default function Home(props){
         data={products}
         renderItem={({ item })=>( // using item keyword is necessary
           <TouchableOpacity onPress={()=>props.navigation.navigate('product',{
-            product_name: item.product_name,
-            product_image: item.product_link,
-            product_message: item.product_message,
-            product_price: item.product_price
+            product: item
           })}>
             <View style={styles.card}>
               <Image source={{uri: item.product_link}} style={styles.card_image}/>

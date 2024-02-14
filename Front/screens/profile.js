@@ -48,7 +48,7 @@ export default function Profile(props){
   },[])
 
 
-  
+  //////////////////////////////////////////////////  ADD BUYER'S DETAIL ON PRODUCT SECTION AND ALSO MARK THE PRODUCT
 
   const [image,setImage] = useState('')
   const [url,setUrl] = useState('')
