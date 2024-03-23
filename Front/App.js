@@ -12,6 +12,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Entypo } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons';
+import Test from './screens/test'
 
 
 export default function App() {
@@ -42,6 +43,7 @@ export default function App() {
             <stack.Screen name='sell' component={Sell} options={StackStyle}/>
             <stack.Screen name='product' component={Product} options={StackStyle}/>
             <stack.Screen name='main' component={MainScreen} options={StackStyle}/>
+            <stack.Screen name='test' component={Test} options={StackStyle}/>
         </stack.Navigator>
     </NavigationContainer>
   );

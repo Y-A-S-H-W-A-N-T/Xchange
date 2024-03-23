@@ -3,16 +3,16 @@ import { getFirestore } from '@firebase/firestore'
 import { getStorage } from '@firebase/storage'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC47NKEHSw0QAb73bOj95Us-QwxvllScK4",
-    authDomain: "xchange-b1d49.firebaseapp.com",
-    projectId: "xchange-b1d49",
-    storageBucket: "xchange-b1d49.appspot.com",
-    messagingSenderId: "429518042687",
-    appId: "1:429518042687:web:43ab6bffe501e130f72a8a",
-    measurementId: "G-6KWGZDCGJ9"
-  };
+  apiKey: "AIzaSyCiM05Wj6OZTC0tWGTjw8i8Lcg0dKxLN58",
+  authDomain: "xchange-99d63.firebaseapp.com",
+  projectId: "xchange-99d63",
+  storageBucket: "xchange-99d63.appspot.com",
+  messagingSenderId: "944488279318",
+  appId: "1:944488279318:web:522224070abe4727313437",
+  measurementId: "G-0Z4X597LJB"
+};
 
-  const app = initializeApp(firebaseConfig)
+const app = initializeApp(firebaseConfig)
   
-  export const storage = getStorage(app)
-  export const db = getFirestore(app)
+export const storage = getStorage(app)
+export const db = getFirestore(app)

@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Sell(props){
 
-    const URL = `http://172.19.78.219:8000/upload_Product`
+    const URL = `http://172.19.76.245:8000/upload_Product`
 
     const [user_id,setUser_id] = useState()
     const [image,setImage] = useState('')

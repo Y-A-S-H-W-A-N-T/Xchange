@@ -13,7 +13,7 @@ export default function Product(props){
 
   const product = props.route.params.product
 
-  const URL = `http://172.19.78.219:8000/userDetails`
+  const URL = `http://172.19.76.245:8000/userDetails`
 
   useEffect(()=>{
     const result = axios.post(URL,{id: product.product_owner})  // Fetching owner's phone number

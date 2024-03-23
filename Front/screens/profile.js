@@ -20,9 +20,9 @@ export default function Profile(props){
   })
   const [loading,setLoading] = useState(true)
 
-  const URL = `http://172.19.78.219:8000/upload_profile_pic`
+  const URL = `http://172.19.76.245:8000/upload_profile_pic`
 
-  const user_URL = `http://172.19.78.219:8000/userDetails`
+  const user_URL = `http://172.19.76.245:8000/userDetails`
 
   useEffect(()=>{
     async function Get_Async_Storage(){  // fetching user id from AsyncStorage
@@ -177,7 +177,7 @@ export default function Profile(props){
         <Text>{user.name}</Text>
       </View>
       <View style={styles.box}>
-        <TouchableOpacity style={styles.logout_button}>
+        <TouchableOpacity style={styles.logout_button} onPress={()=>props.navigation.navigate('test')}>
           <Text style={styles.text}>My Products</Text>
         </TouchableOpacity>
       </View>

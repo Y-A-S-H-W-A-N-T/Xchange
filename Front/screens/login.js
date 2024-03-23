@@ -34,7 +34,7 @@ export default function LoginPage(props) {
 
   // URL
 
-  const URL = `http://172.19.78.219:8000/login`
+  const URL = `http://172.19.76.245:8000/login`
 
 
   // Storing in Async Storage

@@ -1,6 +1,8 @@
 // EXPRESS CONNECTION
 
+const multer = require('multer')
 const express = require('express')
+const path = require('path')
 const app = express()
 const port = 8000
 app.listen(port,(err)=>{
@@ -106,8 +108,28 @@ app.post('/upload_profile_pic',async(req,res)=>{
 
 
 app.post('/userDetails',async(req,res)=>{
-    console.log(req.body)
+    console.log("incomming - ",req.body)
     const result = await User.findOne({_id: req.body.id}).catch((e)=>console.log(e))
     console.log(result)
     res.send(result)
+})
+
+
+const storage = multer.diskStorage({
+    destination: "./public/uploads",
+    filename: function(req,file,cb){
+        return cb(null,`${Date.now()}-${file.originalname}`)
+    }
+})
+
+const upload = multer({
+    storage: storage,
+  })
+
+app.use('/uploads', express.static(path.resolve('./public/uploads/postimages')));
+
+
+app.post('/uploadImage',upload.single('image'),async(req,res)=>{
+    console.log("BODY - ",req.body)
+    console.log("FILE - ",req.file)
 })
