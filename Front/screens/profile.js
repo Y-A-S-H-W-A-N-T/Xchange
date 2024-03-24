@@ -12,6 +12,7 @@ import axios from 'axios'
 export default function Profile(props){
 
   const [user_id,setUser_id] = useState('')
+  const [profile,setProfile] = useState(null)
   console.log(user_id)
 
   const [user,setUser] = useState({
@@ -33,6 +34,7 @@ export default function Profile(props){
           axios.post(user_URL,{id: value})
           .then((res)=>{
             console.log("DATA - ",res.data)
+            setProfile(res.data)
             setUser((prev)=>({...prev,name: res.data.username,pfp_link: res.data.profilePic_link}))
             setLoading(false)
           })
@@ -177,7 +179,7 @@ export default function Profile(props){
         <Text>{user.name}</Text>
       </View>
       <View style={styles.box}>
-        <TouchableOpacity style={styles.logout_button} onPress={()=>props.navigation.navigate('test')}>
+        <TouchableOpacity style={styles.logout_button} onPress={()=>props.navigation.navigate('myproducts',{ profile: profile })}>
           <Text style={styles.text}>My Products</Text>
         </TouchableOpacity>
       </View>
@@ -218,5 +220,5 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderWidth: 5,
     borderColor: 'black',
-  }
+  },
 })

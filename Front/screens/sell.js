@@ -54,6 +54,7 @@ export default function Sell(props){
             base64: true
         })
         setImage(response.assets[0].uri)
+        Add_Image()
       }     
 
       async function Add_Image(){
@@ -124,7 +125,7 @@ export default function Sell(props){
 
       // Uploading Product to Mongodb Atlas
 
-      const Upload = async()=>{        
+      const Upload = async()=>{ 
         axios.post(URL,Product_Details)
         props.navigation.dispatch(
           StackActions.replace('main')
@@ -133,28 +134,115 @@ export default function Sell(props){
 
 
   return (
-    <View>
-        <Text>SELL YOUR PRODUCT HERE</Text>
-        <TextInput placeholder='Name of the Product' onChangeText={(text)=> setProduct_Details((prev)=>({...prev,product_name: text}))}/>
-        <TouchableOpacity onPress={SelectImage}><Text>SELECT IMAGE</Text></TouchableOpacity>
-        { image && <Image source={{uri: image}} style={{height: 250,width: 350}}/> }
-        <Button
-          onPress={Add_Image}
-          title="UPLOAD IMAGE"
-          color="#841584"
-        />
-        <TextInput placeholder='Price' onChangeText={(text)=> setProduct_Details((prev)=>({...prev,product_price: text}))}/>
-        <TextInput placeholder='Add a message' onChangeText={(text)=> setProduct_Details((prev)=>({...prev,product_message: text}))}/>
-        <Button
-          onPress={Upload}
-          title="Upload Product"
-          color="#841584"
-        />
-        {console.log(Product_Details)}
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.info}>
+            You can upload Product which will be visible to the users of this app. They can request you for your Product.
+        </Text>
+      </View>
+        <View style={styles.Product_name}>
+          <TextInput style={styles.input} placeholder='Name of the Product' onChangeText={(text)=> setProduct_Details((prev)=>({...prev,product_name: text}))}/>
+        </View>
+        <View  style={styles.Details}>
+          <TextInput style={styles.input} placeholder='Price' onChangeText={(text)=> setProduct_Details((prev)=>({...prev,product_price: text}))}/>
+          <TextInput style={styles.input} placeholder='Add a message' onChangeText={(text)=> setProduct_Details((prev)=>({...prev,product_message: text}))}/>
+        </View>
+        <View  style={styles.Select_Image}>
+          <TouchableOpacity onPress={SelectImage}><Text style={styles.selectImageText}>SELECT IMAGE</Text></TouchableOpacity>
+        </View>
+        <View style={styles.Image}>
+          { image && <Image source={{uri: image}} style={styles.imageStyle}/> }
+        </View>
+        {
+          image && !url &&
+          <View style={styles.Upload_Image}>
+            <TouchableOpacity onPress={Add_Image} style={styles.Upload_Product}>
+                <Text>Upload Image </Text>
+            </TouchableOpacity>
+          </View>
+        }
+        {
+          url &&
+          <View style={styles.Upload_Button}>
+            <TouchableOpacity onPress={Upload} style={styles.Upload_Product}>
+                  <Text style={styles.sell}>SELL 📦</Text>
+            </TouchableOpacity>
+          </View>
+        }
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  
-})
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  Product_name: {
+    marginBottom: 0,
+  },
+  input: {
+    borderWidth: 2,
+    borderColor: '#121212',
+    padding: 10,
+    width: 'auto',
+    marginBottom: 10,
+    borderRadius: 5,
+    color: 'white',
+    textAlign: 'center',
+    backgroundColor: '#F05454',
+    elevation: 20,
+  },
+  Select_Image: {
+    marginBottom: 20,
+  },
+  selectImageText: {
+    color: '#F05454',
+    fontSize: 16,
+    fontWeight: 'bold',
+    backgroundColor: '#121212',
+    borderWidth: 2,
+    padding: 10,
+    borderColor: 'white',
+    textAlign: 'center',
+    elevation: 10,
+  },
+  Image: {
+    marginBottom: 20,
+  },
+  imageStyle: {
+    height: 250,
+    width: 350,
+    borderRadius: 10,
+    borderWidth: 3,
+    borderColor: '#F05454'
+  },
+  Upload_Image: {
+    marginBottom: 20,
+  },
+  Details: {
+    marginBottom: 20,
+  },
+  Upload_Button: {
+    marginBottom: 20,
+  },
+  Upload_Product: {
+    backgroundColor: '#F05454',
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#121212',
+    elevation: 10,
+  },
+  info: {
+    textAlign: 'center',
+    color: '#121212',
+    fontSize: 16,
+    marginTop: -100,
+  },
+  sell:{
+    fontSize: 20,
+    color: '#F5F5F5'
+  }
+});

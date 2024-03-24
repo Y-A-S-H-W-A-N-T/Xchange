@@ -1,8 +1,5 @@
 // EXPRESS CONNECTION
-
-const multer = require('multer')
 const express = require('express')
-const path = require('path')
 const app = express()
 const port = 8000
 app.listen(port,(err)=>{
@@ -79,13 +76,27 @@ app.post('/upload_Product',async(req,res)=>{
 app.get('/getProducts',async(req,res)=>{
     const result = await Products.find({})
     res.send(result)
-    console.log(result)
+})
+
+app.post('/getProducts',async(req,res)=>{
+    data = req.body.products
+    var products = []
+    try {
+        await Promise.all(data.map(async (id) => {
+            const result = await Products.find({ _id: id });
+            products.push(result);
+        }))
+        res.send(products);
+    } catch (error) {
+        res.status(500).send("Error fetching products: " + error.message);
+    }
+
 })
 
 app.get('/userProducts',async(req,res)=>{
     const result =await User.find({}).populate({path: 'products', model: 'products'})
     res.send(result)
-    console.log(result)
+    console.log("ehhhh yeh wala",result)
 })
 
 app.post('/upload_profile_pic',async(req,res)=>{
@@ -112,24 +123,4 @@ app.post('/userDetails',async(req,res)=>{
     const result = await User.findOne({_id: req.body.id}).catch((e)=>console.log(e))
     console.log(result)
     res.send(result)
-})
-
-
-const storage = multer.diskStorage({
-    destination: "./public/uploads",
-    filename: function(req,file,cb){
-        return cb(null,`${Date.now()}-${file.originalname}`)
-    }
-})
-
-const upload = multer({
-    storage: storage,
-  })
-
-app.use('/uploads', express.static(path.resolve('./public/uploads/postimages')));
-
-
-app.post('/uploadImage',upload.single('image'),async(req,res)=>{
-    console.log("BODY - ",req.body)
-    console.log("FILE - ",req.file)
 })
