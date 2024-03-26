@@ -1,11 +1,8 @@
 // EXPRESS CONNECTION
 const express = require('express')
+const http = require('http');
 const app = express()
 const port = 8000
-app.listen(port,(err)=>{
-    if (err) throw err;
-    console.log(`Server is running at http://localhost:${port}`) 
-})
 
 // DATABASE CONNECTION
 
@@ -19,6 +16,30 @@ mongoose.connect(URL)
 })
 .catch((err)=>{
     console.log(err)
+})
+
+//  Socket Connection
+
+const { Server } = require('socket.io');
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on('connection', socket => {
+    console.log('User Connected');
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+
+    socket.on('chat message', msg => {
+        console.log(msg)
+        io.emit('chat message', msg);
+    });
+});
+
+server.listen(port,(err)=>{
+    if (err) throw err;
+    console.log(`Server is running at http://172.19.79.183:${port}`) 
 })
 
 
@@ -96,7 +117,6 @@ app.post('/getProducts',async(req,res)=>{
 app.get('/userProducts',async(req,res)=>{
     const result =await User.find({}).populate({path: 'products', model: 'products'})
     res.send(result)
-    console.log("ehhhh yeh wala",result)
 })
 
 app.post('/upload_profile_pic',async(req,res)=>{
@@ -121,6 +141,5 @@ app.post('/upload_profile_pic',async(req,res)=>{
 app.post('/userDetails',async(req,res)=>{
     console.log("incomming - ",req.body)
     const result = await User.findOne({_id: req.body.id}).catch((e)=>console.log(e))
-    console.log(result)
     res.send(result)
 })

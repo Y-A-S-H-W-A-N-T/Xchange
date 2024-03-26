@@ -7,7 +7,7 @@ import axios from 'axios'
 
 export default function Home(props){
 
-  const URL = `http://172.19.76.245:8000/getProducts`
+  const URL = `/getProducts`
 
   const [products,setProducts] = useState()
   const [search,setSearch] = useState()

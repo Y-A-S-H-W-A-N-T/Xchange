@@ -5,17 +5,28 @@ import Search from '../assets/search.png'
 import Controller from '../assets/controller.jpg'
 import axios from 'axios'
 import * as SMS from 'expo-sms'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Product(props){
 
   const [number,setnumber] = useState('')
   const [message,setmessage] = useState('')
+  const [user,setuser] = useState('')
 
   const product = props.route.params.product
 
-  const URL = `http://172.19.76.245:8000/userDetails`
+  const URL = `/userDetails`
 
   useEffect(()=>{
+    async function Get_Async_Storage(){
+      try {
+        const value = await AsyncStorage.getItem('userID')
+        setuser(value)
+      } catch (e) {
+        console.log("Unable to fetch user id from Async Storage ->",e)
+      }
+    }
+    Get_Async_Storage()
     const result = axios.post(URL,{id: product.product_owner})  // Fetching owner's phone number
     result.then((res)=>setnumber(res.data.phone))
   },[])
@@ -57,6 +68,10 @@ export default function Product(props){
         <Button 
             title='Ask for Product'
             onPress={Send_SMS}
+        />
+        <Button
+          title='CHAT WITH OWNER'
+          onPress={()=>props.navigation.navigate('chat')}
         />
     </View>
   )

@@ -6,18 +6,21 @@ import Home from './screens/home'
 import Profile from './screens/profile'
 import Sell from './screens/sell'
 import Product from './screens/product'
+import MyProducts from './screens/myProducts'
+import Chat from './screens/chat'
 import { Image, View, Text} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Entypo } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons';
-import MyProducts from './screens/myProducts'
+import axios from 'axios'
 
 
 export default function App() {
 
   const stack =  createNativeStackNavigator()
+  axios.defaults.baseURL="http://172.19.79.183:8000"
 
   const StackStyle = { 
     animation: 'slide_from_left',
@@ -44,6 +47,7 @@ export default function App() {
             <stack.Screen name='product' component={Product} options={StackStyle}/>
             <stack.Screen name='main' component={MainScreen} options={StackStyle}/>
             <stack.Screen name='myproducts' component={MyProducts} options={StackStyle}/>
+            <stack.Screen name='chat' component={Chat} options={StackStyle}/>
         </stack.Navigator>
     </NavigationContainer>
   );

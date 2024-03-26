@@ -15,10 +15,8 @@ export default function MyProducts(props){
 
   const showProducts = async()=>{
     const data = profile.products
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-    await axios.post(`http://172.19.76.245:8000/getProducts`,{ products: data })
+    await axios.post(`/getProducts`,{ products: data })
     .then((res)=>{
-      console.log("AGAYA - ",res.data)
       setProducts(res.data)
       setShowProd(true)
     })

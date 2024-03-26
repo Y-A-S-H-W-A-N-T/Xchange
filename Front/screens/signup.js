@@ -9,7 +9,7 @@ import Submit_sign from '../assets/sign.png'
 export default function SignupPage(props) {
 
   // const URL = `${process.env.BACKEND_SERVER}/signup`;
-  const URL = `http://172.19.76.245:8000/signup`;
+  const URL = `/signup`;
 
   const [details,setDetails] = useState({
     username: "",
