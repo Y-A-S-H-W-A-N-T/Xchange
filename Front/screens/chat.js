@@ -4,21 +4,28 @@ import io from 'socket.io-client';
 
 export default function Chat(props) {
 
-    const socket = io('http://172.19.79.183:8000');
+    const userId = props.route.params.userId
+    const ownerId = props.route.params.ownerId
+    const socket = io('http://172.19.79.33:8000');
 
-    const [messages,setMessages] = useState([])
+    const [messages,setMessages] = useState([{}])
     const [msg,setMsg] = useState(null)
 
     useEffect(() => {
-        socket.on('chat message', msg => {
-            setMessages([...messages, msg]);
-            console.log("HERE",messages)
-        });
-    }, [messages]);
+        socket.emit('connected')
+
+        socket.on('chat message', (data) => {
+          setMessages([...messages,data])
+        })
+    }, [messages])
 
     const sendMessage = () => {
-        socket.emit('chat message', msg);
-        setMsg('');
+        socket.emit('chat message',{
+          message: msg,
+          sender: userId,
+          ownerId: ownerId
+        })
+        setMsg('')
     };
 
   return (
@@ -40,12 +47,23 @@ export default function Chat(props) {
                 data={messages}
                 renderItem={({ item })=>(
                     <View>
-                        <Text>{item}</Text>
+                        <Text>{item.ownerId==userId?'Owner : ' : 'User : '}{item.message}</Text>
                     </View>
                 )}  
             />
         }
       </View>
+      {/* <View>
+        {
+          messages.length>0 && 
+          messages.map((val,ind)=>{
+            <View key={ind}>
+              <Text>USER : </Text>
+              <Text>{ind}</Text>
+            </View>
+          })
+        }
+      </View> */}
     </View>
   )
 }

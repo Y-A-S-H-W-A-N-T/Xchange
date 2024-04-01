@@ -24,17 +24,21 @@ const { Server } = require('socket.io');
 const server = http.createServer(app);
 const io = new Server(server);
 
+
 io.on('connection', socket => {
-    console.log('User Connected');
+    socket.on('connected',()=>{
+        console.log("User Connected")
+    })
+
 
     socket.on('disconnect', () => {
         console.log('User disconnected');
     });
 
-    socket.on('chat message', msg => {
-        console.log(msg)
-        io.emit('chat message', msg);
-    });
+    socket.on('chat message', data => {
+        console.log(data)
+        io.emit('chat message', data)
+    })
 });
 
 server.listen(port,(err)=>{

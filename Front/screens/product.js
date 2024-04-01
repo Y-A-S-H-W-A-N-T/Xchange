@@ -71,7 +71,7 @@ export default function Product(props){
         />
         <Button
           title='CHAT WITH OWNER'
-          onPress={()=>props.navigation.navigate('chat')}
+          onPress={()=>props.navigation.navigate('chat',{userId : user, ownerId: product.product_owner})}
         />
     </View>
   )

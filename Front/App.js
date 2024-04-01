@@ -20,7 +20,7 @@ import axios from 'axios'
 export default function App() {
 
   const stack =  createNativeStackNavigator()
-  axios.defaults.baseURL="http://172.19.79.183:8000"
+  axios.defaults.baseURL="http://172.19.79.33:8000"
 
   const StackStyle = { 
     animation: 'slide_from_left',
