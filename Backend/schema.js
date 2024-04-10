@@ -56,7 +56,22 @@ const products = mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-    }
+    },
+    upload_month: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    upload_date: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    upload_time: {
+        type: String,
+        required: true,
+        trim: true,
+    },
 })
 
 

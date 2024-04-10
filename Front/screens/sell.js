@@ -12,6 +12,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function Sell(props){
 
+  const currentDate = new Date()
+  const month = currentDate.getMonth()+1
+  const date = currentDate.getDate();
+  const time = currentDate.getHours();
+
     const URL = `/upload_Product`
 
     const [user_id,setUser_id] = useState()
@@ -22,7 +27,10 @@ export default function Sell(props){
       product_link: '',
       product_price: '',
       product_message: '',
-      product_owner: ''
+      product_owner: '',
+      upload_month: month,
+      upload_date: date,
+      upload_time: time
     })
 
     useEffect(()=>{
@@ -75,17 +83,22 @@ export default function Sell(props){
           })
           const upload_to_firebase = async()=>{
             const Img_ref = ref(storage,Product_Details.product_name)
-            await uploadBytes(Img_ref,blob)
-            .then(async(res)=>{
-                await getDownloadURL(res.ref)
-                .then((link)=>{
-                  setUrl(link)
-                })
-                .catch((err)=>{
-                  Alert.alert(err)
-                  console.log(err)
-                })
-            })
+            try{
+              await uploadBytes(Img_ref,blob)
+              .then(async(res)=>{
+                  await getDownloadURL(res.ref)
+                  .then((link)=>{
+                    setUrl(link)
+                  })
+                  .catch((err)=>{
+                    Alert.alert(err)
+                    console.log("Error in uploading Product Image",err)
+                  })
+              })
+            }
+            catch(err){
+              console.log("Error in Uploading Product - ",err)
+            }
           }
           upload_to_firebase()
           if(!url)

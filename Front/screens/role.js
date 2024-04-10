@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { StackActions } from '@react-navigation/native'
 
 export default function Role(props){
-  
+
   const Skip = (e)=>{
     e.preventDefault()
     props.navigation.dispatch(

@@ -1,8 +1,5 @@
 import { View, Image, StyleSheet, Text, TouchableOpacity, TextInput, ScrollView, FlatList, Alert, Button } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { StackActions } from '@react-navigation/native'
-import Search from '../assets/search.png'
-import Controller from '../assets/controller.jpg'
 import axios from 'axios'
 import * as SMS from 'expo-sms'
 import AsyncStorage from '@react-native-async-storage/async-storage'

@@ -6,7 +6,7 @@ export default function Chat(props) {
 
     const userId = props.route.params.userId
     const ownerId = props.route.params.ownerId
-    const socket = io('http://172.19.79.33:8000');
+    const socket = io('http://172.19.79.238:8000') // Watch for the IP address
 
     const [messages,setMessages] = useState([{}])
     const [msg,setMsg] = useState(null)
