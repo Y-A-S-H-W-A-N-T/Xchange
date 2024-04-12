@@ -27,6 +27,7 @@
     "react-native-dotenv": "^3.4.9",
     "react-native-google-vr-panorama": "^1.1.2",
     "react-native-image-picker": "^7.1.0",
+    "react-native-modal": "^13.0.1",
     "socket.io-client": "^4.7.5"
   },
   "devDependencies": {

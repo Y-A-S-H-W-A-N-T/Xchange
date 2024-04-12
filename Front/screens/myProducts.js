@@ -3,15 +3,24 @@ import axios from 'axios'
 import * as ImagePicker from 'expo-image-picker'
 import { useEffect, useState } from 'react'
 import Add from '../assets/add.png'
+import Delete from '../components/delete'
 
 export default function MyProducts(props){
 
   const profile = props.route.params.profile
   const [showProd,setShowProd] = useState(false)
-
+  const [longPress,setLongPress] = useState(false)
   const [products,setProducts] = useState(null)
+  const [delete_Product,setDelete_Product] = useState('')
 
-  
+  const setPress = ()=>{
+    setLongPress(!longPress)
+  }
+
+  const open_Modal = (name)=>{
+    setDelete_Product(name)
+    setLongPress(!longPress)
+  }
 
   const showProducts = async()=>{
     const data = profile.products
@@ -45,10 +54,13 @@ export default function MyProducts(props){
           renderItem={({ item })=>(
             <TouchableOpacity onPress={()=>props.navigation.navigate('product',{
               product: item[0]
-            })}>
+            })}
+            onLongPress={()=>open_Modal(item[0].product_name)}
+            >
               <View  style={styles.card}>
                 <Image source={{uri: item[0].product_link}} style={styles.card_image}/>
-                <Text>PRODUCT NAME : {item[0].product_name}</Text>
+                <Text>{item[0].product_name}</Text>
+                {longPress && <Delete setPress={setPress} product_id={delete_Product}/>}
               </View>
             </TouchableOpacity>
           )}  

@@ -88,7 +88,7 @@ export default function Sell(props){
               .then(async(res)=>{
                   await getDownloadURL(res.ref)
                   .then((link)=>{
-                    setUrl(link)
+                    setProduct_Details((prev)=>({...prev,product_link: link}))
                   })
                   .catch((err)=>{
                     Alert.alert(err)
@@ -101,16 +101,6 @@ export default function Sell(props){
             }
           }
           upload_to_firebase()
-          if(!url)
-          {
-            upload_to_firebase()
-          }
-          console.log('came HERE ------------------------------------------------ ',url)
-          setProduct_Details((prev)=>({...prev,product_link: url}))
-          if(Product_Details.product_link.length<5)
-          {
-            upload_to_firebase()
-          }
           Alert.alert(
             "Hi",
             "Upload Picture?",
@@ -123,7 +113,7 @@ export default function Sell(props){
                {
                 text: "Confirm",
                 onPress: async() =>{
-                  Alert.alert("Upload image - ",url)
+                  Alert.alert("Upload image - ",Product_Details.product_link)
                   upload_to_firebase()
                 }
                }
@@ -139,6 +129,7 @@ export default function Sell(props){
       // Uploading Product to Mongodb Atlas
 
       const Upload = async()=>{ 
+        console.log(Product_Details)
         axios.post(URL,Product_Details)
         props.navigation.dispatch(
           StackActions.replace('main')
@@ -167,7 +158,7 @@ export default function Sell(props){
           { image && <Image source={{uri: image}} style={styles.imageStyle}/> }
         </View>
         {
-          image && !url &&
+          image && !Product_Details.product_link &&
           <View style={styles.Upload_Image}>
             <TouchableOpacity onPress={Add_Image} style={styles.Upload_Product}>
                 <Text>Upload Image </Text>
@@ -175,7 +166,7 @@ export default function Sell(props){
           </View>
         }
         {
-          url &&
+          Product_Details.product_link &&
           <View style={styles.Upload_Button}>
             <TouchableOpacity onPress={Upload} style={styles.Upload_Product}>
                   <Text style={styles.sell}>SELL 📦</Text>
