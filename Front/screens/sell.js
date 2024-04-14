@@ -16,6 +16,7 @@ export default function Sell(props){
   const month = currentDate.getMonth()+1
   const date = currentDate.getDate();
   const time = currentDate.getHours();
+  const min = currentDate.getMinutes();
 
     const URL = `/upload_Product`
 
@@ -30,7 +31,8 @@ export default function Sell(props){
       product_owner: '',
       upload_month: month,
       upload_date: date,
-      upload_time: time
+      upload_time: time,
+      upload_min: min,
     })
 
     useEffect(()=>{

@@ -1,26 +1,26 @@
 import { View, Image, StyleSheet, Text, TouchableOpacity, Button, Alert, TextInput, FlatList} from 'react-native'
 import axios from 'axios'
-import * as ImagePicker from 'expo-image-picker'
 import { useEffect, useState } from 'react'
 import Add from '../assets/add.png'
-import Delete from '../components/delete'
+import AwesomeAlert from 'react-native-awesome-alerts'
 
 export default function MyProducts(props){
 
+  const [alert,setAlert] = useState(false)
+
+  const showAlert = (id) => {
+    setProduct_id(id)
+    setAlert(!alert)
+  }
+
+  const hideAlert = () => {
+    setAlert(!alert)
+  }
+
   const profile = props.route.params.profile
   const [showProd,setShowProd] = useState(false)
-  const [longPress,setLongPress] = useState(false)
   const [products,setProducts] = useState(null)
-  const [delete_Product,setDelete_Product] = useState('')
-
-  const setPress = ()=>{
-    setLongPress(!longPress)
-  }
-
-  const open_Modal = (name)=>{
-    setDelete_Product(name)
-    setLongPress(!longPress)
-  }
+  const [product_id,setProduct_id] = useState('')
 
   const showProducts = async()=>{
     const data = profile.products
@@ -28,6 +28,16 @@ export default function MyProducts(props){
     .then((res)=>{
       setProducts(res.data)
       setShowProd(true)
+    })
+  }
+
+  const DeleteProduct = ()=>{
+    axios.post('/delete_my_product',{id : product_id })
+    .then(()=>{
+      alert('Product Deleted')
+    })
+    .catch(err=>{
+      console.log(err)
     })
   }
   return (
@@ -55,17 +65,35 @@ export default function MyProducts(props){
             <TouchableOpacity onPress={()=>props.navigation.navigate('product',{
               product: item[0]
             })}
-            onLongPress={()=>open_Modal(item[0].product_name)}
+            onLongPress={()=>showAlert(item[0]._id)}
             >
               <View  style={styles.card}>
                 <Image source={{uri: item[0].product_link}} style={styles.card_image}/>
                 <Text>{item[0].product_name}</Text>
-                {longPress && <Delete setPress={setPress} product_id={delete_Product}/>}
               </View>
             </TouchableOpacity>
           )}  
         />
         }
+        <AwesomeAlert
+          show={alert}
+          showProgress={false}
+          title={product_id}
+          message="Are you sure you want to delete this ?"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          cancelText="No, cancel"
+          confirmText="Yes, delete it"
+          confirmButtonColor="#DD6B55"
+          onCancelPressed={() => {
+            hideAlert();
+          }}
+          onConfirmPressed={() => {
+            DeleteProduct();
+          }}
+        />
     </View>
   )
 }

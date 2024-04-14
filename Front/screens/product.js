@@ -53,6 +53,9 @@ export default function Product(props){
     }
   }
 
+  const currentDate = new Date()
+  const min = currentDate.getMinutes();
+
   return (
     <View>
         <Text>{product.product_name}</Text>
@@ -70,6 +73,8 @@ export default function Product(props){
           title='CHAT WITH OWNER'
           onPress={()=>props.navigation.navigate('chat',{userId : user, ownerId: product.product_owner})}
         />
+        <Text>DATE : {product.upload_date} / {product.upload_month} / 2024</Text>
+        <Text>{product.upload_time} : {product.upload_min} hrs</Text>
     </View>
   )
 }

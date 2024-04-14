@@ -147,3 +147,8 @@ app.post('/userDetails',async(req,res)=>{
     const result = await User.findOne({_id: req.body.id}).catch((e)=>console.log(e))
     res.send(result)
 })
+
+app.post('/delete_my_product',async(req,res)=>{
+    const result = await Products.deleteOne({_id: req.body.id})
+    console.log(result)
+})

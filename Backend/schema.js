@@ -72,6 +72,11 @@ const products = mongoose.Schema({
         required: true,
         trim: true,
     },
+    upload_min: {
+        type: String,
+        required: true,
+        trim: true,
+    },
 })
 
 
