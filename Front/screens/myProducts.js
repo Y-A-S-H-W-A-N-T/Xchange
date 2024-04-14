@@ -32,7 +32,7 @@ export default function MyProducts(props){
   }
 
   const DeleteProduct = ()=>{
-    axios.post('/delete_my_product',{id : product_id })
+    axios.post('/delete_my_product',{id : product_id , user_id: profile._id})
     .then(()=>{
       alert('Product Deleted')
     })
