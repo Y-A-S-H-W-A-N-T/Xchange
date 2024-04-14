@@ -153,4 +153,5 @@ app.post('/delete_my_product',async(req,res)=>{
     console.log(result)
     const check = await User.updateOne({_id: req.body.user_id},{$pull: {products : req.body.id}})
     console.log("YE - ",check)
+    res.json({message : 'success'})
 })

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Add from '../assets/add.png'
 import AwesomeAlert from 'react-native-awesome-alerts'
+import { StackActions } from '@react-navigation/native'
 
 export default function MyProducts(props){
 
@@ -33,8 +34,14 @@ export default function MyProducts(props){
 
   const DeleteProduct = ()=>{
     axios.post('/delete_my_product',{id : product_id , user_id: profile._id})
-    .then(()=>{
-      alert('Product Deleted')
+    .then((res)=>{
+      console.log("RESPONSE : ",res.data.message)
+      res.data.message=='success'?
+      props.navigation.dispatch(
+        StackActions.replace('role')
+      )
+      :
+      alert("Error in deleting the product")
     })
     .catch(err=>{
       console.log(err)
