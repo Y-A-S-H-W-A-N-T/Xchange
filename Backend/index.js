@@ -155,3 +155,10 @@ app.post('/delete_my_product',async(req,res)=>{
     console.log("YE - ",check)
     res.json({message : 'success'})
 })
+
+app.post('/chats',async(req,res)=>{
+    console.log(req.body)
+    const result = await Products.updateOne({_id: req.body.product},{ $push: { chats: req.body } })
+    console.log(result)
+    res.json({message: 'success'})
+})

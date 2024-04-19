@@ -1,12 +1,16 @@
 import { View, Text, TextInput, Button, FlatList } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import io from 'socket.io-client';
+import io from 'socket.io-client'
+import axios from 'axios'
+import Product from './product'
 
 export default function Chat(props) {
 
     const userId = props.route.params.userId
     const ownerId = props.route.params.ownerId
-    const socket = io('http://172.19.79.238:8000') // Watch for the IP address
+    const productId = props.route.params.productId
+    const socket = io('http://172.19.78.194:8000') // Watch for the IP address
+    console.log("Product ID : ",productId)
 
     const [messages,setMessages] = useState([{}])
     const [msg,setMsg] = useState(null)
@@ -19,7 +23,18 @@ export default function Chat(props) {
         })
     }, [messages])
 
-    const sendMessage = () => {
+    const sendMessage = async() => {
+      const isOwner = userId == ownerId ? true : false
+
+      await axios.post('/chats',{sender: userId, message: msg, owner: isOwner, product: productId})
+      .then((res)=>{
+        if(res.data.message==='success')
+          console.log("Chat stored")
+      })
+      .catch((err)=>{
+        console.log("Error in strong chats")
+      })
+
         socket.emit('chat message',{
           message: msg,
           sender: userId,

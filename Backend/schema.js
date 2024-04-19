@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { required } = require('nodemon/lib/config')
 
 const user = mongoose.Schema({
     username: {
@@ -30,6 +31,8 @@ const user = mongoose.Schema({
         type: String,
         trim: true
     }
+},{
+    timestamps: true
 })
 
 const products = mongoose.Schema({
@@ -77,6 +80,24 @@ const products = mongoose.Schema({
         required: true,
         trim: true,
     },
+    chats:[
+        {
+            sender: {
+                type: String,
+            },
+            message: {
+                type: String,
+            },
+            owner: {
+                type: Boolean,
+            },
+            product: {
+                type: String,
+            }
+        },
+    ]
+}, {
+    timestamps: true
 })
 
 

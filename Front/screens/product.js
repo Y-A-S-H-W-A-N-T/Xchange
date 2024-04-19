@@ -71,7 +71,7 @@ export default function Product(props){
         />
         <Button
           title='CHAT WITH OWNER'
-          onPress={()=>props.navigation.navigate('chat',{userId : user, ownerId: product.product_owner})}
+          onPress={()=>props.navigation.navigate('chat',{userId : user, ownerId: product.product_owner, productId: product._id})}
         />
         <Text>DATE : {product.upload_date} / {product.upload_month} / 2024</Text>
         <Text>{product.upload_time} : {product.upload_min} hrs</Text>
