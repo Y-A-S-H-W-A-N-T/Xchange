@@ -29,15 +29,15 @@ io.on('connection', socket => {
     socket.on('connected',()=>{
         console.log("User Connected")
     })
-
-
-    socket.on('disconnect', () => {
-        console.log('User disconnected');
-    });
-
-    socket.on('chat message', data => {
-        console.log(data)
-        io.emit('chat message', data)
+    socket.on('message',async(message)=>{
+        message_box ={
+            sender: message.sender,
+            message: message.message,
+            owner: message.owner
+        }
+        console.log(message_box)
+        const result = await Products.updateOne({_id: message.product },{ $push: { chats: message_box } })
+        console.log(result)
     })
 });
 

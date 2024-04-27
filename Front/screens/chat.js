@@ -26,19 +26,20 @@ export default function Chat(props) {
     const sendMessage = async() => {
       const isOwner = userId == ownerId ? true : false
 
-      await axios.post('/chats',{sender: userId, message: msg, owner: isOwner, product: productId})
-      .then((res)=>{
-        if(res.data.message==='success')
-          console.log("Chat stored")
-      })
-      .catch((err)=>{
-        console.log("Error in strong chats")
-      })
+      // await axios.post('/chats',{sender: userId, message: msg, owner: isOwner, product: productId})
+      // .then((res)=>{
+      //   if(res.data.message==='success')
+      //     console.log("Chat stored")
+      // })
+      // .catch((err)=>{
+      //   console.log("Error in strong chats")
+      // })
 
-        socket.emit('chat message',{
-          message: msg,
+        socket.emit('message',{
           sender: userId,
-          ownerId: ownerId
+          message: msg,
+          owner: isOwner,
+          product: productId
         })
         setMsg('')
     };
