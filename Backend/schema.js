@@ -90,6 +90,9 @@ const products = mongoose.Schema({
             },
             owner: {
                 type: Boolean,
+            },
+            product: {
+                type: String,
             }
         },
     ]

@@ -26,18 +26,15 @@ const io = new Server(server);
 
 
 io.on('connection', socket => {
-    socket.on('connected',()=>{
+    socket.on('connected',async(product_id)=>{
         console.log("User Connected")
-    })
+        const chats = await Products.findOne({_id: product_id}, { chats: 1 })
+        socket.emit('previous_messages',chats)
+        })
     socket.on('message',async(message)=>{
-        message_box ={
-            sender: message.sender,
-            message: message.message,
-            owner: message.owner
-        }
-        console.log(message_box)
-        const result = await Products.updateOne({_id: message.product },{ $push: { chats: message_box } })
+        const result = await Products.updateOne({_id: message.product },{ $push: { chats: message } })
         console.log(result)
+        socket.broadcast.emit('message',message)
     })
 });
 

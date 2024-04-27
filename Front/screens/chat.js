@@ -16,10 +16,9 @@ export default function Chat(props) {
     const [msg,setMsg] = useState(null)
 
     useEffect(() => {
-        socket.emit('connected')
-
-        socket.on('chat message', (data) => {
-          setMessages([...messages,data])
+        socket.emit('connected',productId)
+        socket.on('previous_messages',(previous_chats)=>{
+          console.log(previous_chats)
         })
     }, [messages])
 
