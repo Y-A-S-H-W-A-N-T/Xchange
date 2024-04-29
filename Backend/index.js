@@ -28,8 +28,9 @@ const io = new Server(server);
 io.on('connection', socket => {
     socket.on('connected',async(product_id)=>{
         console.log("User Connected")
-        const chats = await Products.findOne({_id: product_id}, { chats: 1 })
-        socket.emit('previous_messages',chats)
+        const product = await Products.findOne({ _id: product_id }, { chats: 1 })
+        const previousMessages = product ? product.chats : []; // Assuming `chats` is an array
+        socket.emit('previous_messages', previousMessages);
         })
     socket.on('message',async(message)=>{
         const result = await Products.updateOne({_id: message.product },{ $push: { chats: message } })
@@ -40,7 +41,7 @@ io.on('connection', socket => {
 
 server.listen(port,(err)=>{
     if (err) throw err;
-    console.log(`Server is running at http://172.19.79.183:${port}`) 
+    console.log(`Server is running at http://172.19.78.194:${port}`) 
 })
 
 

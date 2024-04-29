@@ -9,31 +9,20 @@ export default function Chat(props) {
     const userId = props.route.params.userId
     const ownerId = props.route.params.ownerId
     const productId = props.route.params.productId
-    const socket = io('http://172.19.78.194:8000') // Watch for the IP address
-    console.log("Product ID : ",productId)
+    const socket = io('http://192.168.29.130:8000') // Watch for the IP address
 
     const [messages,setMessages] = useState([{}])
     const [msg,setMsg] = useState(null)
 
-    useEffect(() => {
-        socket.emit('connected',productId)
-        socket.on('previous_messages',(previous_chats)=>{
-          console.log(previous_chats)
-        })
-    }, [messages])
+    useEffect(()=>{
+      socket.emit('connected',productId)
+      socket.on('previous_messages',(previous_chats)=>{
+        setMessages(previous_chats)
+      })
+    },[msg])
 
     const sendMessage = async() => {
       const isOwner = userId == ownerId ? true : false
-
-      // await axios.post('/chats',{sender: userId, message: msg, owner: isOwner, product: productId})
-      // .then((res)=>{
-      //   if(res.data.message==='success')
-      //     console.log("Chat stored")
-      // })
-      // .catch((err)=>{
-      //   console.log("Error in strong chats")
-      // })
-
         socket.emit('message',{
           sender: userId,
           message: msg,
@@ -62,23 +51,12 @@ export default function Chat(props) {
                 data={messages}
                 renderItem={({ item })=>(
                     <View>
-                        <Text>{item.ownerId==userId?'Owner : ' : 'User : '}{item.message}</Text>
+                        <Text>CHAT - > {item.message}</Text>
                     </View>
                 )}  
             />
         }
       </View>
-      {/* <View>
-        {
-          messages.length>0 && 
-          messages.map((val,ind)=>{
-            <View key={ind}>
-              <Text>USER : </Text>
-              <Text>{ind}</Text>
-            </View>
-          })
-        }
-      </View> */}
     </View>
   )
 }
