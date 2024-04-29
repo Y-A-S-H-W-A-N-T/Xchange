@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button, FlatList } from 'react-native'
+import { View, Text, TextInput, Button, FlatList, StyleSheet } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
 import axios from 'axios'
@@ -18,6 +18,7 @@ export default function Chat(props) {
       socket.emit('connected',productId)
       socket.on('previous_messages',(previous_chats)=>{
         setMessages(previous_chats)
+        console.log(messages)
       })
     },[msg])
 
@@ -32,31 +33,70 @@ export default function Chat(props) {
         setMsg('')
     };
 
-  return (
-    <View>
-      <Text>Chat</Text>
-      <TextInput
-        placeholder='Send a message'
-        value={msg}
-        onChangeText={text=>setMsg(text)}
-      />
-      <Button
-        title='SEND'
-        onPress={sendMessage}
-      />
-      <View>
-        {
-            messages.length>0 &&
+    return (
+      <View style={styles.container}>
+        <View style={styles.messageContainer}>
+          {messages.length > 0 && (
             <FlatList
-                data={messages}
-                renderItem={({ item })=>(
-                    <View>
-                        <Text>{item.owner? 'Owner': 'user'} : {item.message}</Text>
-                    </View>
-                )}  
+              data={messages}
+              renderItem={({ item }) => (
+                <View style={styles.message}>
+                  <Text style={styles.messageText}>{item.owner? 'Owner' : 'User'}: {item.message}</Text>
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
             />
-        }
+          )}
+        </View>
+        <View style={styles.send}>
+          <TextInput
+            style={styles.input}
+            placeholder='Send a message'
+            value={msg}
+            onChangeText={text => setMsg(text)}
+          />
+          <Button
+            title='SEND'
+            onPress={sendMessage}
+          />
+        </View>
       </View>
-    </View>
-  )
+    );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  input: {
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+  messageContainer: {
+    flex: 1,
+    marginTop: 10,
+  },
+  message: {
+    backgroundColor: '#f0f0f0',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  messageText: {
+    fontSize: 16,
+  },
+  send: {
+    marginBottom: 50
+  }
+});
