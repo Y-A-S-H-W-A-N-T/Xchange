@@ -51,7 +51,7 @@ export default function Chat(props) {
                 data={messages}
                 renderItem={({ item })=>(
                     <View>
-                        <Text>CHAT - > {item.message}</Text>
+                        <Text>{item.owner? 'Owner': 'user'} : {item.message}</Text>
                     </View>
                 )}  
             />
