@@ -9,7 +9,7 @@ export default function Chat(props) {
     const userId = props.route.params.userId
     const ownerId = props.route.params.ownerId
     const productId = props.route.params.productId
-    const socket = io('http://172.19.78.194:8000') // Watch for the IP address
+    const socket = io('https://xchange-backend-nrkt.onrender.com') // Watch for the IP address
 
     const [messages,setMessages] = useState([{}])
     const [msg,setMsg] = useState(null)
@@ -43,7 +43,6 @@ export default function Chat(props) {
                   <View>
                     {/* <Text style={{marginLeft: item.sender==userId? 'auto': '0%', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.message}</Text> */}
                     {item.sender==userId? <View  style={styles.sender_message}><Text style={{marginLeft: 'auto', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.owner?'⭐ : ': ''}{item.message}</Text></View> : <View  style={styles.reciever_message}><Text style={{marginRight: 'auto', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.message}</Text></View>}
-                    {console.log(item.updatedAt)}
                   </View>
                 </View>
               )}

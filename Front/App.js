@@ -20,7 +20,7 @@ import axios from 'axios'
 export default function App() {
 
   const stack =  createNativeStackNavigator()
-  axios.defaults.baseURL="http://172.19.78.194:8000"
+  axios.defaults.baseURL="https://xchange-backend-nrkt.onrender.com"
 
   const StackStyle = { 
     animation: 'slide_from_left',
