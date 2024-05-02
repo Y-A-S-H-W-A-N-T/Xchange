@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
     borderRadius: 10, // Add border radius for rounded corners
     borderWidth: 3, // Add border width for styling
     borderColor: 'black', // Add border 
-    elevation: 5,
   },
   price: {
     fontSize: 20,

@@ -9,7 +9,7 @@ export default function Chat(props) {
     const userId = props.route.params.userId
     const ownerId = props.route.params.ownerId
     const productId = props.route.params.productId
-    const socket = io('http://192.168.29.130:8000') // Watch for the IP address
+    const socket = io('http://172.19.78.194:8000') // Watch for the IP address
 
     const [messages,setMessages] = useState([{}])
     const [msg,setMsg] = useState(null)
@@ -18,7 +18,6 @@ export default function Chat(props) {
       socket.emit('connected',productId)
       socket.on('previous_messages',(previous_chats)=>{
         setMessages(previous_chats)
-        console.log(messages)
       })
     },[msg])
 
@@ -41,8 +40,10 @@ export default function Chat(props) {
               data={messages}
               renderItem={({ item }) => (
                 <View>
-                  <View style={styles.sender_message}>
-                    <Text style={{marginLeft: item.sender==userId? 'auto': '0%', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.message}</Text>
+                  <View>
+                    {/* <Text style={{marginLeft: item.sender==userId? 'auto': '0%', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.message}</Text> */}
+                    {item.sender==userId? <View  style={styles.sender_message}><Text style={{marginLeft: 'auto', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.owner?'⭐ : ': ''}{item.message}</Text></View> : <View  style={styles.reciever_message}><Text style={{marginRight: 'auto', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.message}</Text></View>}
+                    {console.log(item.updatedAt)}
                   </View>
                 </View>
               )}
@@ -89,10 +90,21 @@ const styles = StyleSheet.create({
   },
   sender_message: {
     backgroundColor: '#f0f0f0',
-    padding: 20,
+    padding: 15,
     borderRadius: 20,
     marginBottom: 5,
-    width: 'auto',
+    paddingRight: 30,
+    marginLeft: 'auto',
+    borderTopRightRadius: 0
+  },
+  reciever_message: {
+    backgroundColor: '#f0f0f0',
+    padding: 15,
+    paddingRight: 30,
+    borderRadius: 20,
+    marginBottom: 5,
+    marginRight: 'auto',
+    borderTopLeftRadius: 0
   },
   send: {
     marginBottom: 50,
