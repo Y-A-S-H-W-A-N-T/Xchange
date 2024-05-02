@@ -40,8 +40,10 @@ export default function Chat(props) {
             <FlatList
               data={messages}
               renderItem={({ item }) => (
-                <View style={styles.message}>
-                  <Text style={styles.messageText}>{item.owner? 'Owner' : 'User'}: {item.message}</Text>
+                <View>
+                  <View style={styles.sender_message}>
+                    <Text style={{marginLeft: item.sender==userId? 'auto': '0%', fontSize: 16}}>{item.message}</Text>
+                  </View>
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -55,10 +57,7 @@ export default function Chat(props) {
             value={msg}
             onChangeText={text => setMsg(text)}
           />
-          <Button
-            title='SEND'
-            onPress={sendMessage}
-          />
+          <Text style={styles.send_btn} onPress={sendMessage}>SEND</Text>
         </View>
       </View>
     );
@@ -82,21 +81,30 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     paddingHorizontal: 10,
+    width: '80%',
   },
   messageContainer: {
     flex: 1,
     marginTop: 10,
   },
-  message: {
+  sender_message: {
     backgroundColor: '#f0f0f0',
     padding: 10,
     borderRadius: 5,
     marginBottom: 5,
-  },
-  messageText: {
-    fontSize: 16,
+    width: '100%',
   },
   send: {
-    marginBottom: 50
+    marginBottom: 50,
+    flexDirection: 'row',
+    marginTop: 20
+  },
+  send_btn: {
+    padding: 10,
+    backgroundColor: 'green',
+    height: '80%',
+    marginLeft: 10,
+    borderRadius: 10,
+    color: 'white'
   }
 });
