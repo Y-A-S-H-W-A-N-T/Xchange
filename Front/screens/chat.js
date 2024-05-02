@@ -42,7 +42,7 @@ export default function Chat(props) {
               renderItem={({ item }) => (
                 <View>
                   <View style={styles.sender_message}>
-                    <Text style={{marginLeft: item.sender==userId? 'auto': '0%', fontSize: 16}}>{item.message}</Text>
+                    <Text style={{marginLeft: item.sender==userId? 'auto': '0%', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.message}</Text>
                   </View>
                 </View>
               )}
@@ -89,10 +89,10 @@ const styles = StyleSheet.create({
   },
   sender_message: {
     backgroundColor: '#f0f0f0',
-    padding: 10,
-    borderRadius: 5,
+    padding: 20,
+    borderRadius: 20,
     marginBottom: 5,
-    width: '100%',
+    width: 'auto',
   },
   send: {
     marginBottom: 50,
@@ -107,4 +107,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: 'white'
   }
-});
+})
