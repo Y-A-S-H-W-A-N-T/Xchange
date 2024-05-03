@@ -1,30 +1,44 @@
 {
   "expo": {
-    "name": "Front",
+    "name": "Xchange",
     "slug": "Front",
+    "description": "Buy or sell a product here. Users can create chat rooms of their own favorable topics and chit chat with other users of same interests.",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Xchange.jpg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Xchange_icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F05454"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.yashwant.Front",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/Xchange_icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "65f57bfb-e134-4550-acb8-330b05b018e3"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/65f57bfb-e134-4550-acb8-330b05b018e3"
     }
   }
 }

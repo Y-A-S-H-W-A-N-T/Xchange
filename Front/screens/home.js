@@ -4,12 +4,13 @@ import { StackActions } from '@react-navigation/native'
 import Search from '../assets/search.png'
 import Controller from '../assets/controller.jpg'
 import axios from 'axios'
+import Loading from '../assets/loading.gif'
 
 export default function Home(props){
 
   const URL = `/getProducts`
 
-  const [products,setProducts] = useState()
+  const [products,setProducts] = useState(null)
   const [search,setSearch] = useState()
 
   useEffect(()=>{
@@ -29,6 +30,7 @@ export default function Home(props){
         <TextInput style={styles.search} placeholder='search an item' value={search} onChangeText={(text)=>setSearch(text)}/>
         <TouchableOpacity onPress={Search_Product}><Image source={Search} style={styles.search_button}/></TouchableOpacity>
       </View>
+      {products==null? <View style={styles.loading_screen}><Image source={Loading}/><Text style={{color: '#F05454'}}>Bringing Products for you</Text></View> : <></>}
       <FlatList
         style={styles.flatlist}
         numColumns={2}
@@ -80,5 +82,12 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     marginBottom: 100
+  },
+  loading_screen: {
+    marginTop: '25%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    display: 'flex',
+    alignItems: 'center',
   }
 })
