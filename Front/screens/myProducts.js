@@ -23,14 +23,18 @@ export default function MyProducts(props){
   const [products,setProducts] = useState(null)
   const [product_id,setProduct_id] = useState('')
 
-  const showProducts = async()=>{
-    const data = profile.products
-    await axios.post(`/getProducts`,{ products: data })
-    .then((res)=>{
-      setProducts(res.data)
-      setShowProd(true)
-    })
-  }
+
+  useEffect(()=>{
+    const showProducts = async()=>{
+      const data = profile.products
+      await axios.post(`/getProducts`,{ products: data })
+      .then((res)=>{
+        setProducts(res.data)
+        setShowProd(true)
+      })
+    }
+    showProducts()
+  },[])
 
   const DeleteProduct = ()=>{
     axios.post('/delete_my_product',{id : product_id , user_id: profile._id})

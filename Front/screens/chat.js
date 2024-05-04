@@ -41,7 +41,6 @@ export default function Chat(props) {
               renderItem={({ item }) => (
                 <View>
                   <View>
-                    {/* <Text style={{marginLeft: item.sender==userId? 'auto': '0%', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.message}</Text> */}
                     {item.sender==userId? <View  style={styles.sender_message}><Text style={{marginLeft: 'auto', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.owner?'⭐ : ': ''}{item.message}</Text></View> : <View  style={styles.reciever_message}><Text style={{marginRight: 'auto', fontSize: 16,color: item.owner? 'orchid': 'black'}}>{item.message}</Text></View>}
                   </View>
                 </View>
