@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import Add from '../assets/add.png'
 import AwesomeAlert from 'react-native-awesome-alerts'
 import { StackActions } from '@react-navigation/native'
+import Loading from '../assets/loading.gif'
 
 export default function MyProducts(props){
 
@@ -22,6 +23,7 @@ export default function MyProducts(props){
   const [showProd,setShowProd] = useState(false)
   const [products,setProducts] = useState(null)
   const [product_id,setProduct_id] = useState('')
+
 
 
   useEffect(()=>{
@@ -53,20 +55,13 @@ export default function MyProducts(props){
   }
   return (
     <View>
-        {
-          !showProd &&
-          <View>
-            <TouchableOpacity onPress={()=>showProducts()}>
-              <Text>SHOW PRODUCTS</Text>
-            </TouchableOpacity>
-          </View>
-        }
         <TouchableOpacity onPress={()=>props.navigation.navigate('sell')}> 
           <Image
             style={styles.add}
             source={Add}
           /> 
         </TouchableOpacity>
+        {showProd==false? <View style={styles.loading_screen}><Image source={Loading}/><Text style={{color: '#F05454'}}>Bringing your products</Text></View> : <></>}
         { showProd &&
           <FlatList
           style={styles.flatlist}
@@ -89,7 +84,7 @@ export default function MyProducts(props){
         <AwesomeAlert
           show={alert}
           showProgress={false}
-          title={product_id}
+          title='🗑️🚮'
           message="Are you sure you want to delete this ?"
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
@@ -129,5 +124,12 @@ const styles = StyleSheet.create({
   },
   flatlist: {
     marginBottom: 150
+  },
+  loading_screen: {
+    marginTop: '25%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    display: 'flex',
+    alignItems: 'center',
   }
 })

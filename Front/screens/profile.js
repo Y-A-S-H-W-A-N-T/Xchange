@@ -8,6 +8,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage"
 import { storage } from '../config'
 import axios from 'axios'
+import Logout from '../assets/logout.png'
 
 export default function Profile(props){
 
@@ -135,26 +136,6 @@ export default function Profile(props){
         console.log(err)
       }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const LogOut = async()=>{
     AsyncStorage.clear()
     console.log("XXXXXXXXXXX LOG OUT XXXXXXXXXXX")
@@ -165,27 +146,27 @@ export default function Profile(props){
 
   return (
     <View>
-      {loading && <Text style={styles.text}>LOADING.............</Text>}
-      <View style={styles.box}>
-        <View style={styles.profile_box}>
-          {!user.pfp_link && <Image source={Pic} style={styles.profile_pic}/>}
-          {user.pfp_link && <Image source={{uri : user.pfp_link}} style={styles.profile_pic}/>}
-        </View>
-      </View>
-      <TouchableOpacity style={{alignItems: 'center'}} onPress={SelectImage}>
-        <Text>edit✏️</Text>
-      </TouchableOpacity>
-      <View style={styles.box}>
-        <Text>{user.name}</Text>
-      </View>
-      <View style={styles.box}>
-        <TouchableOpacity style={styles.logout_button} onPress={()=>props.navigation.navigate('myproducts',{ profile: profile })}>
-          <Text style={styles.text}>My Products</Text>
+      {loading && <Text style={styles.loadingText}>LOADING.............</Text>}
+      <View style={{marginLeft: 'auto',padding: 10}}>
+        <TouchableOpacity onPress={LogOut}>
+          <Image source={Logout} style={styles.logout}/>
         </TouchableOpacity>
       </View>
       <View style={styles.box}>
-        <TouchableOpacity onPress={LogOut} style={styles.logout_button}>
-          <Text style={styles.text}>LOG OUT</Text>
+        <View style={styles.profile_box}>
+          {!user.pfp_link && <Image source={Pic} style={styles.profile_pic}/>}
+          {user.pfp_link && <Image source={{uri: user.pfp_link}} style={styles.profile_pic}/>}
+        </View>
+      </View>
+      <TouchableOpacity style={styles.editButton} onPress={SelectImage}>
+        <Text>edit✏️</Text>
+      </TouchableOpacity>
+      <View style={styles.box}>
+        <Text style={styles.nameText}>{user.name}</Text>
+      </View>
+      <View style={styles.box}>
+        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('myproducts', {profile: profile})}>
+          <Text style={styles.buttonText}>My Products</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -193,32 +174,45 @@ export default function Profile(props){
 }
 
 const styles = StyleSheet.create({
-  logout_button: {
-    backgroundColor: 'green',
-    padding: 10,
-    alignItems: 'center',
-    borderWidth: 5,
-    borderColor: 'black',
-    width: '50%'
-  },
-  text: {
-    fontSize: 25
+  loadingText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 20,
   },
   box: {
-    alignItems: 'center',
-    marginTop: 50,
-  },
-  profile_pic: {
-      height: 100,
-      width: 100,
+    marginVertical: 10,
+    paddingHorizontal: 20,
   },
   profile_box: {
     alignItems: 'center',
-    backgroundColor: 'red',
-    borderRadius: 100,
-    width: '27%',
-    overflow: 'hidden',
-    borderWidth: 5,
-    borderColor: 'black',
   },
+  profile_pic: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  editButton: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  nameText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  button: {
+    backgroundColor: '#F05454',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  logout: {
+    height: 50,
+    width: 50
+  }
 })
