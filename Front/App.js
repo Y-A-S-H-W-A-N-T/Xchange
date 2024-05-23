@@ -58,23 +58,20 @@ function MainScreen(){
 
   const Tab = createBottomTabNavigator();
 
-  const TabStyle = {
-
-  }
 
   return(
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle:{
-          bottom: 10,
+          bottom: 20,
           backgroundColor: '#F5F5F5',
           borderRadius: 100,
           width: '80%',
           left: 40,
         },
         headerShown: false,
-        tabBarHideOnKeyboard: true
+        tabBarHideOnKeyboard: true,
       }}
       initialRouteName='home'
     >
@@ -82,7 +79,7 @@ function MainScreen(){
         tabBarIcon: ({focused})=>{
           return(
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <FontAwesome name="user" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>Profile</Text>
+              <FontAwesome name="user" size={30} style={{color: focused? "#F05454" : '#121212'}}/>
             </View>
           )
         }
@@ -91,7 +88,7 @@ function MainScreen(){
         tabBarIcon: ({focused})=>{
           return(
             <View>
-              <Entypo name="home" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>home</Text>
+              <Entypo name="home" size={30} style={{color: focused? "#F05454" : '#121212'}}/>
             </View>
           )
         }
@@ -101,7 +98,7 @@ function MainScreen(){
         tabBarIcon: ({focused})=>{
           return(
             <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Entypo name="login" size={30} style={{color: focused? "#F05454" : '#121212', marginTop: 20}}/><Text>features</Text>
+              <Entypo name="login" size={30} style={{color: focused? "#F05454" : '#121212'}}/>
             </View>
           )
         }

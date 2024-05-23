@@ -26,10 +26,6 @@ export default function Home(props){
 
   return (
     <View>
-      <View style={styles.search_bar}>
-        <TextInput style={styles.search} placeholder='search an item' value={search} onChangeText={(text)=>setSearch(text)}/>
-        <TouchableOpacity onPress={Search_Product}><Image source={Search} style={styles.search_button}/></TouchableOpacity>
-      </View>
       {products==null? <View style={styles.loading_screen}><Image source={Loading}/><Text style={{color: '#F05454'}}>Bringing Products for you</Text></View> : <></>}
       <FlatList
         style={styles.flatlist}
