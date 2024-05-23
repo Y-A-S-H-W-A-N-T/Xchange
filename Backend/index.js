@@ -29,7 +29,7 @@ io.on('connection', socket => {
     socket.on('connected',async(product_id)=>{
         console.log("User Connected")
         const product = await Products.findOne({ _id: product_id }, { chats: 1 })
-        const previousMessages = product ? product.chats : []; // Assuming `chats` is an array
+        const previousMessages = product ? product.chats : [];
         socket.emit('previous_messages', previousMessages);
         })
     socket.on('message',async(message)=>{

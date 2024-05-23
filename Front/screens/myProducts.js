@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Add from '../assets/add.png'
 import AwesomeAlert from 'react-native-awesome-alerts'
 import { StackActions } from '@react-navigation/native'
-import Loading from '../assets/loading.gif'
+import Loading from '../assets/loadi.gif'
 
 export default function MyProducts(props){
 

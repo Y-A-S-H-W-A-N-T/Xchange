@@ -9,26 +9,26 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "1.21.0",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native-stack": "^6.9.17",
     "axios": "^1.6.7",
     "dotenv": "^16.4.1",
-    "expo": "~50.0.2",
-    "expo-file-system": "~16.0.9",
-    "expo-image-picker": "~14.7.1",
-    "expo-linear-gradient": "~12.7.2",
-    "expo-sms": "~11.7.1",
-    "expo-status-bar": "~1.11.1",
+    "expo": "^51.0.8",
+    "expo-file-system": "~17.0.1",
+    "expo-image-picker": "~15.0.5",
+    "expo-linear-gradient": "~13.0.2",
+    "expo-sms": "~12.0.1",
+    "expo-status-bar": "~1.12.1",
+    "expo-updates": "~0.25.14",
     "firebase": "^10.8.0",
     "install": "^0.13.0",
     "react": "18.2.0",
-    "react-native": "0.73.6",
+    "react-native": "0.74.1",
     "react-native-awesome-alerts": "^2.0.0",
     "react-native-dotenv": "^3.4.9",
     "react-native-image-picker": "^7.1.0",
-    "socket.io-client": "^4.7.5",
-    "expo-updates": "~0.24.12"
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

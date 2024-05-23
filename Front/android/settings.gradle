@@ -1,4 +1,4 @@
-rootProject.name = 'Front'
+rootProject.name = 'Xchange'
 
 dependencyResolutionManagement {
   versionCatalogs {

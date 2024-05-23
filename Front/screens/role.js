@@ -31,15 +31,6 @@ export default function Role(props){
           style={styles.skip_button}
         />
       </TouchableOpacity>
-      <View style={styles.card}>
-        <Text style={styles.text}>Xchange</Text>
-        <TouchableOpacity>
-          <Image
-            style={styles.buy}
-            source={BUY}
-          />
-        </TouchableOpacity>
-      </View>
     </View>
   )
 }

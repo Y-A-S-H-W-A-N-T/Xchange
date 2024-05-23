@@ -5,10 +5,10 @@
     "description": "Buy or sell a product here. Users can create chat rooms of their own favorable topics and chit chat with other users of same interests.",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Xchange.jpg",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Xchange_icon.png",
+      "image": "./assets/Xchange.png",
       "resizeMode": "contain",
       "backgroundColor": "#F05454"
     },
